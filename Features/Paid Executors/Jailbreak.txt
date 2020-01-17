@@ -1,0 +1,37 @@
+Features Of My JailBreak Script For Paid Executors:
+
+> Place Teleports
+> Teleport Speed Customisation
+> Nearest Airdrop Teleport
+
+> Car NoClip
+> Car Jump
+> Rainbow Car
+> Infinite Nitro
+> Rainbow Nitro
+> Premium JetPack Fuel
+> Infinite JetPack Fuel
+> Never Break Tires
+> Mobile Garage
+> Suspension Height Modification
+> Car Speed Modification
+> Give JetPack
+> Give Items
+
+> NoClip
+> Fly
+> Infinite Jump
+> No Wait
+> WalkSpeed
+> Gravity
+> Reset Above
+
+> Fire Rate Modification
+> Mag Size Modification
+> Camera Shake Modification
+> Bullet Spread Modification
+> Bullets Per Shot Modification
+
+> Criminal, Prisoner, Police, Airdrop ESP
+> Criminal, Prisoner, Police, Airdrop Tracers
+> Tracer Width Customisation

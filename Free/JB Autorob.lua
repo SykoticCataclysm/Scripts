@@ -176,7 +176,7 @@ function RobJewelry()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
 		if CheckCops() == true then
-					break
+					return
 				end
 		if not IsBagFull() and b.Transparency < 0.99 then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
@@ -187,14 +187,14 @@ function RobJewelry()
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position), 3)
 			end
 			if CheckCops() == true then
-					break
+					return
 				end
 			wait(0.6)
 			for c = 1, 4 do
 				game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.F, false, game)
 				wait(0.6)
 				if CheckCops() == true then
-					break
+					return
 				end
 			end
 			local temp = Collected
@@ -236,7 +236,7 @@ function RobBank()
 	Teleport(Bank.Money.CFrame, 3)
 	repeat wait()
 		if CheckCops() == true then
-			break
+			return
 		end 
 	until IsBagFull() == true
 end

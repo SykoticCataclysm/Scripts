@@ -124,7 +124,7 @@ function Teleport(Cframe, speed)
 	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 4, 0)
 	local length = Cframe.p - Root.Position
 	workspace.Gravity = 0
-	for i = 0, length.magnitude, 3.5 do
+	for i = 0, length.magnitude, speed do
 		Root.CFrame = cf0 + length.Unit * i
 		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
 		wait()
@@ -145,9 +145,9 @@ function CheckCops()
 				wait()
 				Abort = false
 				wait()
-				Teleport(CFrame.new(Root.Position.X, 200, Root.Position.Z))
+				Teleport(CFrame.new(Root.Position.X, 200, Root.Position.Z), 3.5)
 				wait(5)
-				Teleport(Pos)
+				Teleport(Pos, 2)
 			end
 		end
 	end
@@ -176,23 +176,23 @@ end
 -- Jewelry Store --
 
 function RobJewelry()
-	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z))
+	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(143.7, 120, 1351.5))
+	Teleport(CFrame.new(143.7, 120, 1351.5), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(143.7, 19.1, 1351.5))
+	Teleport(CFrame.new(143.7, 19.1, 1351.5), 2)
 	wait(1)
-	Teleport(CFrame.new(126.3, 19, 1316.9))
+	Teleport(CFrame.new(126.3, 19, 1316.9), 3)
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
 		if not IsBagFull() and b.Transparency < 0.99 then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
-				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position))
+				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
 			elseif b.Position.Z < 1309 and b.Position.Z > 1304 then
-				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, 2.5), b.Position))
+				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, 2.5), b.Position), 3)
 			else
-				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position))
+				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position), 3)
 			end
 			wait(0.6)
 			for c = 1, 4 do
@@ -204,25 +204,25 @@ function RobJewelry()
 			wait(0.5)
 		end
 	end
-	Teleport(CFrame.new(154, 18.8, 1270.9))
+	Teleport(CFrame.new(154, 18.8, 1270.9), 3)
 	wait(0.2)
-	Teleport(CFrame.new(141.6, 117.9, 1274.4))
+	Teleport(CFrame.new(141.6, 117.9, 1274.4), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(116.3, 117.9, 1307))
+	Teleport(CFrame.new(116.3, 117.9, 1307), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(-229.8, 18.8, 1602.3))
+	Teleport(CFrame.new(-229.8, 18.8, 1602.3), 3)
 end
 
 -- Bank --
 
 function RobBank()
-	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z))
+	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(12.1, 120, 790.6))
+	Teleport(CFrame.new(12.1, 120, 790.6), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(12.1, 19.1, 790.6))
+	Teleport(CFrame.new(12.1, 19.1, 790.6), 2)
 	wait(1)
-	Teleport(CFrame.new(25.7, 19.4, 854.3))
+	Teleport(CFrame.new(25.7, 19.4, 854.3), 3)
 	local Bank = workspace.Banks:GetChildren()[1].Layout:GetChildren()[1]
 	local Door = Bank.Door.Hinge
 	if Bank:FindFirstChild("Lasers") then
@@ -233,9 +233,9 @@ function RobBank()
 		end
 	end
 	wait(1)
-	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2))
+	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
 	wait(0.5)
-	Teleport(Bank.Money.CFrame)
+	Teleport(Bank.Money.CFrame, 3)
 	repeat wait() until IsBagFull() == true
 end
 
@@ -251,7 +251,7 @@ function RobAirdrop()
 			table.remove(Airdrops, i)
 		end
 	end
-	Teleport(Drop.CFrame)
+	Teleport(Drop.CFrame, 3.5)
 	wait(0.5)
 	game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
 	repeat wait() until Drop.Parent == nil

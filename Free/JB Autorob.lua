@@ -186,6 +186,9 @@ function RobJewelry()
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
+		if Abort == true then
+			break
+		end
 		if not IsBagFull() and b.Transparency < 0.99 then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
@@ -210,7 +213,7 @@ function RobJewelry()
 	wait(0.2)
 	Teleport(CFrame.new(116.3, 117.9, 1307), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(-229.8, 18.8, 1602.3), 3)
+	Teleport(CFrame.new(-229.8, 24, 1602.3), 3)
 end
 
 -- Bank --

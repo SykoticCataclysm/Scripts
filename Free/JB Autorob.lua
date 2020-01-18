@@ -208,7 +208,7 @@ function RobJewelry()
 	wait(0.2)
 	Teleport(CFrame.new(116.3, 117.9, 1307), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(-229.8, 24, 1602.3), 3)
+	Teleport(CFrame.new(-229.8, 27, 1602.3), 3)
 end
 
 -- Bank --

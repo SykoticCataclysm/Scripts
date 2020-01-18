@@ -136,7 +136,7 @@ function CheckCops()
 	for i, v in pairs(game:GetService("Teams").Police:GetPlayers()) do
 		if v.Character ~= nil and v.Character.HumanoidRootPart ~= nil then
 			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 20 then
-				Teleport(CFrame.new())
+				Teleport(CFrame.new(Root.Position.X, 200, Root.Position.Z))
 			end
 		end
 	end

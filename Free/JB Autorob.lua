@@ -274,6 +274,7 @@ spawn(function()
 			elseif (Vector3.new(537.4, 21.6, 1048.8) - Root.Position).magnitude > 10 then
 				Teleport(CFrame.new(537.4, 21.6, 1048.8))
 			end
+			CheckCops()
 		elseif _G.AutoRobOn == true then
 			CheckCops()
 		end

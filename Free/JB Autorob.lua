@@ -132,6 +132,16 @@ function Teleport(Cframe)
 	workspace.Gravity = 196.2
 end
 
+function CheckCops()
+	for i, v in pairs(game:GetService("Teams").Police:GetPlayers()) do
+		if v.Character ~= nil and v.Character.HumanoidRootPart ~= nil then
+			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 20 then
+				Teleport(CFrame.new())
+			end
+		end
+	end
+end
+
 game:GetService("RunService").Stepped:Connect(function()
 	if Clipped == false then
 		for i, v in pairs(Char:GetChildren()) do
@@ -240,7 +250,7 @@ end
 -- Controller --
 
 spawn(function()
-	while wait() do
+	while wait(1) do
 		if _G.AutoRobOn == true and Robbing == false then
 			if BankIsOpen == true then
 				Robbing = true
@@ -261,6 +271,8 @@ spawn(function()
 			elseif (Vector3.new(537.4, 21.6, 1048.8) - Root.Position).magnitude > 10 then
 				Teleport(CFrame.new(537.4, 21.6, 1048.8))
 			end
+		elseif _G.AutoRobOn == true then
+			CheckCops()
 		end
 	end
 end)

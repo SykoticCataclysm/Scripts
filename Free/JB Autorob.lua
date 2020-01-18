@@ -64,6 +64,7 @@ local Root = Char:WaitForChild("HumanoidRootPart")
 
 local Clipped = true
 local Robbing = false
+local Abort = false
 _G.AutoRobOn = true
 
 local BankIsOpen = false
@@ -118,7 +119,7 @@ workspace.ChildRemoved:Connect(function(child)
 	end
 end)
 
-function Teleport(Cframe)
+function Teleport(Cframe, speed)
 	Clipped = false
 	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 4, 0)
 	local length = Cframe.p - Root.Position
@@ -127,6 +128,9 @@ function Teleport(Cframe)
 		Root.CFrame = cf0 + length.Unit * i
 		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
 		wait()
+		if Abort == true then
+			break
+		end
 	end 
 	Clipped = true
 	workspace.Gravity = 196.2
@@ -137,6 +141,10 @@ function CheckCops()
 		if v.Team == game:GetService("Teams").Police then
 			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
 				local Pos = Root.CFrame
+				Abort = true
+				wait()
+				Abort = false
+				wait()
 				Teleport(CFrame.new(Root.Position.X, 200, Root.Position.Z))
 				wait(5)
 				Teleport(Pos)
@@ -254,28 +262,28 @@ end
 
 spawn(function()
 	while wait(1) do
-		if _G.AutoRobOn == true and Robbing == false then
-			if BankIsOpen == true then
-				Robbing = true
-				RobBank()
-				BankIsOpen = false
-				BankOpen.BackgroundColor3 = Color3.new(1, 0, 0)
-				Robbing = false
-			elseif JewIsOpen == true then
-				Robbing = true
-				RobJewelry()
-				JewIsOpen = false
-				JewOpen.BackgroundColor3 = Color3.new(1, 0, 0)
-				Robbing = false
-			elseif #Airdrops > 0 then
-				Robbing = true
-				RobAirdrop()
-				Robbing = false
-			elseif (Vector3.new(537.4, 21.6, 1048.8) - Root.Position).magnitude > 10 then
-				Teleport(CFrame.new(537.4, 21.6, 1048.8))
+		if _G.AutoRobOn == true then
+			if Robbing == false then
+				if BankIsOpen == true then
+					Robbing = true
+					RobBank()
+					BankIsOpen = false
+					BankOpen.BackgroundColor3 = Color3.new(1, 0, 0)
+					Robbing = false
+				elseif JewIsOpen == true then
+					Robbing = true
+					RobJewelry()
+					JewIsOpen = false
+					JewOpen.BackgroundColor3 = Color3.new(1, 0, 0)
+					Robbing = false
+				elseif #Airdrops > 0 then
+					Robbing = true
+					RobAirdrop()
+					Robbing = false
+				elseif (Vector3.new(537.4, 21.6, 1048.8) - Root.Position).magnitude > 10 then
+					Teleport(CFrame.new(537.4, 21.6, 1048.8))
+				end
 			end
-			CheckCops()
-		elseif _G.AutoRobOn == true then
 			CheckCops()
 		end
 	end

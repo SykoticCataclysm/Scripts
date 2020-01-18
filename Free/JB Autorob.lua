@@ -127,9 +127,6 @@ function Teleport(Cframe, speed)
 		Root.CFrame = cf0 + length.Unit * i
 		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
 		wait()
-		if Abort == true then
-			break
-		end
 	end 
 	Clipped = true
 	workspace.Gravity = 196.2

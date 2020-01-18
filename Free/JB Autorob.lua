@@ -136,10 +136,7 @@ function CheckCops()
 	for i, v in ipairs(game:GetService("Players"):GetChildren()) do
 		if v.Team == game:GetService("Teams").Police then
 			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
-				local Pos = Root.CFrame
-				Teleport(CFrame.new(Root.Position.X, 200, Root.Position.Z), 3.5)
-				wait(5)
-				Teleport(Pos, 2)
+				Teleport(CFrame.new(537.4, 21.6, 1048.8), 3.5)
 			end
 		end
 	end
@@ -178,7 +175,9 @@ function RobJewelry()
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
-		CheckCops()
+		if CheckCops() == true then
+					break
+				end
 		if not IsBagFull() and b.Transparency < 0.99 then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
@@ -187,12 +186,16 @@ function RobJewelry()
 			else
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position), 3)
 			end
-			CheckCops()
+			if CheckCops() == true then
+					break
+				end
 			wait(0.6)
 			for c = 1, 4 do
 				game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.F, false, game)
 				wait(0.6)
-				CheckCops()
+				if CheckCops() == true then
+					break
+				end
 			end
 			local temp = Collected
 			Collected = temp + 1
@@ -231,7 +234,11 @@ function RobBank()
 	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
 	wait(0.5)
 	Teleport(Bank.Money.CFrame, 3)
-	repeat wait() CheckCops() until IsBagFull() == true
+	repeat wait()
+		if CheckCops() == true then
+			break
+		end 
+	until IsBagFull() == true
 end
 
 -- Airdrop --

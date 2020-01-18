@@ -263,7 +263,7 @@ end
 -- Controller --
 
 spawn(function()
-	while wait(1) do
+	while wait() do
 		if _G.AutoRobOn == true then
 			if Robbing == false then
 				if BankIsOpen == true then

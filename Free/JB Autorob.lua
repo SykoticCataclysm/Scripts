@@ -50,12 +50,12 @@ Airdrop.BorderSizePixel = 0
 Airdrop.Position = UDim2.new(1, -10, 1, -70)
 Airdrop.Size = UDim2.new(0, 50, 0, 35)
 Airdrop.Font = Enum.Font.SourceSans
-Airdrop.Text = "Airdrops : Being Added..."
+Airdrop.Text = "Airdrops : 0"
 Airdrop.TextColor3 = Color3.new(1, 0, 0)
 Airdrop.TextSize = 24
 Airdrop.TextStrokeTransparency = 0.5
 Airdrop.TextXAlignment = Enum.TextXAlignment.Right
-
+	
 -- Setup --
 
 local Plr = game:GetService("Players").LocalPlayer
@@ -73,13 +73,50 @@ local Airdrops = {}
 Plr.CharacterAdded:Connect(function(char)
 	Root = char:WaitForChild("HumanoidRootPart")
 	Char = char
+	_G.AutoRobOn = false
+	wait()
+	_G.AutoRobOn = true
 end)
 
 for i, v in pairs(workspace:GetChildren()) do
-	if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil then
+	if v.Name == "Drop" then
+		repeat wait() until v:FindFirstChild("Parachute") == nil
 		table.insert(Airdrops, #Airdrops + 1, v:WaitForChild("Briefcase"))
 	end
+	Airdrop.Text = "Airdrops : " .. tostring(#Airdrops)
+	if #Airdrops > 0 then
+		Airdrop.TextColor3 = Color3.new(0, 1, 0)
+	else
+		Airdrop.TextColor3 = Color3.new(1, 0, 0)
+	end
 end
+
+workspace.ChildAdded:Connect(function(child)
+	if child.Name == "Drop" then
+		repeat wait() until child:FindFirstChild("Parachute") == nil
+		table.insert(Airdrops, #Airdrops + 1, child:WaitForChild("Briefcase"))
+	end
+	Airdrop.Text = "Airdrops : " .. tostring(#Airdrops)
+	if #Airdrops > 0 then
+		Airdrop.TextColor3 = Color3.new(0, 1, 0)
+	else
+		Airdrop.TextColor3 = Color3.new(1, 0, 0)
+	end
+end)
+
+workspace.ChildRemoved:Connect(function(child)
+	for i, v in pairs(Airdrops) do
+		if v == child then
+			table.remove(Airdrops, i)
+		end
+	end
+	Airdrop.Text = "Airdrops : " .. tostring(#Airdrops)
+	if #Airdrops > 0 then
+		Airdrop.TextColor3 = Color3.new(0, 1, 0)
+	else
+		Airdrop.TextColor3 = Color3.new(1, 0, 0)
+	end
+end)
 
 function Teleport(Cframe)
 	Clipped = false
@@ -123,7 +160,7 @@ function RobJewelry()
 	Teleport(CFrame.new(143.7, 120, 1351.5))
 	wait(0.2)
 	Teleport(CFrame.new(143.7, 19.1, 1351.5))
-	wait(0.2)
+	wait(1)
 	Teleport(CFrame.new(126.3, 19, 1316.9))
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
@@ -160,9 +197,11 @@ end
 function RobBank()
 	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z))
 	wait(0.2)
-	Teleport(CFrame.new(26, 120, 853.5))
+	Teleport(CFrame.new(12.1, 120, 790.6))
 	wait(0.2)
-	Teleport(CFrame.new(26, 19.4, 853.5))
+	Teleport(CFrame.new(12.1, 19.1, 790.6))
+	wait(1)
+	Teleport(CFrame.new(25.7, 19.4, 854.3))
 	local Bank = workspace.Banks:GetChildren()[1].Layout:GetChildren()[1]
 	local Door = Bank.Door.Hinge
 	if Bank:FindFirstChild("Lasers") then
@@ -177,6 +216,25 @@ function RobBank()
 	wait(0.5)
 	Teleport(Bank.Money.CFrame)
 	repeat wait() until IsBagFull() == true
+end
+
+-- Airdrop --
+
+function RobAirdrop()
+	local Drop
+	local Dist = 999999
+	for i, v in pairs(Airdrops) do
+		if (v.Position - Root.Position).magnitude < Dist then
+			Dist = (v.Position - Root.Position).magnitude
+			Drop = v
+			table.remove(Airdrops, i)
+		end
+	end
+	Teleport(Drop.CFrame)
+	wait(0.5)
+	game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+	repeat wait() until Drop.Parent == nil
+	game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
 
 -- Controller --
@@ -195,6 +253,10 @@ spawn(function()
 				RobJewelry()
 				JewIsOpen = false
 				JewOpen.BackgroundColor3 = Color3.new(1, 0, 0)
+				Robbing = false
+			elseif #Airdrops > 0 then
+				Robbing = true
+				RobAirdrop()
 				Robbing = false
 			elseif (Vector3.new(537.4, 21.6, 1048.8) - Root.Position).magnitude > 10 then
 				Teleport(CFrame.new(537.4, 21.6, 1048.8))
@@ -237,4 +299,11 @@ BankSign:GetPropertyChangedSignal("Transparency"):Connect(function()
 		BankIsOpen = false
 		BankOpen.TextColor3 = Color3.new(1, 0, 0)
 	end
+end)
+
+-- Anti AFK --
+
+Plr.Idled:connect(function()
+	game:GetService("VirtualUser"):CaptureController()
+	game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)

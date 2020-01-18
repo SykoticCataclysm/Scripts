@@ -64,7 +64,6 @@ local Root = Char:WaitForChild("HumanoidRootPart")
 
 local Clipped = true
 local Robbing = false
-local Abort = false
 _G.AutoRobOn = true
 
 local BankIsOpen = false
@@ -141,10 +140,6 @@ function CheckCops()
 		if v.Team == game:GetService("Teams").Police then
 			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
 				local Pos = Root.CFrame
-				Abort = true
-				wait()
-				Abort = false
-				wait()
 				Teleport(CFrame.new(Root.Position.X, 200, Root.Position.Z), 3.5)
 				wait(5)
 				Teleport(Pos, 2)
@@ -186,9 +181,6 @@ function RobJewelry()
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
-		if Abort == true then
-			break
-		end
 		if not IsBagFull() and b.Transparency < 0.99 then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)

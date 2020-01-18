@@ -231,7 +231,7 @@ function RobBank()
 	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
 	wait(0.5)
 	Teleport(Bank.Money.CFrame, 3)
-	repeat wait() until IsBagFull() == true
+	repeat wait() CheckCops() until IsBagFull() == true
 end
 
 -- Airdrop --
@@ -279,7 +279,6 @@ spawn(function()
 					Teleport(CFrame.new(537.4, 21.6, 1048.8))
 				end
 			end
-			CheckCops()
 		end
 	end
 end)

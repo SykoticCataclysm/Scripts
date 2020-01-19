@@ -81,6 +81,7 @@ for i, v in ipairs(workspace:GetChildren()) do
 	if v.Name == "Drop" and v:FindFirstChild("Briefcase") then
 		repeat wait() until v:FindFirstChild("Parachute") == nil
 		table.insert(Airdrops, #Airdrops + 1, v)
+		Airdrop.TextColor3 = Color3.new(0, 1, 0)
 	end
 end
 
@@ -88,6 +89,7 @@ workspace.ChildAdded:Connect(function(child)
 	if child.Name == "Drop" then
 		repeat wait() until child:FindFirstChild("Parachute") == nil and child:FindFirstChild("Briefcase")
 		table.insert(Airdrops, #Airdrops + 1, child)
+		Airdrop.TextColor3 = Color3.new(0, 1, 0)
 	end
 end)
 
@@ -97,6 +99,9 @@ workspace.ChildRemoved:Connect(function(child)
 			if v == child then
 				table.remove(Airdrops, i)
 			end
+		end
+		if #Airdrops == 0 then
+			Airdrop.TextColor3 = Color3.new(1, 0, 0)
 		end
 	end
 end)

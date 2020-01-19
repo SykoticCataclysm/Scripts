@@ -266,7 +266,9 @@ function RobMuseum()
 			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true
 		end
 	end
-	UpTP(CFrame.new(1638.9, 51.1, -1799.1))
+	if string.split(MuseumBag.Text, " ")[1] ~= "0" then
+		UpTP(CFrame.new(1638.9, 51.1, -1799.1))
+	end
 end
 
 -- Airdrop --
@@ -284,7 +286,7 @@ function RobAirdrop()
 		local Loc = Drop.Briefcase.CFrame
 		UpTP(Loc)
 		repeat
-			TP(Loc, 1.5)
+			TP(Loc, 3)
 			wait(0.5)
 			game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
 			wait(7)

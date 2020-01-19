@@ -269,19 +269,19 @@ spawn(function()
 					Robbing = true
 					RobBank()
 					BankIsOpen = false
-					BankOpen.BackgroundColor3 = Color3.new(1, 0, 0)
+					BankOpen.TextColor3 = Color3.new(1, 0, 0)
 					Robbing = false
 				elseif JewIsOpen == true then
 					Robbing = true
 					RobJewelry()
 					JewIsOpen = false
-					JewOpen.BackgroundColor3 = Color3.new(1, 0, 0)
+					JewOpen.TextColor3 = Color3.new(1, 0, 0)
 					Robbing = false
 				elseif #Airdrops > 0 then
 					Robbing = true
 					RobAirdrop()
 					Robbing = false
-				elseif (Vector3.new(554.5, 18.8, 1117.4) - Root.Position).magnitude > 15 then
+				elseif (Vector3.new(554.5, 18.8, 1117.4) - Root.Position).magnitude > 5 then
 					Teleport(CFrame.new(554.5, 18.8, 1117.4), 3.5)
 				end
 			end

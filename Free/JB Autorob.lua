@@ -320,12 +320,14 @@ end)
 -- Cop Detection --
 
 spawn(function()
-	while wait(1) do
+	while wait(0.25) do
 		if Teleporting == false then
 			for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
 				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
 					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
+						Abort = true
 						Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
+						Abort = false
 					end
 				end
 			end

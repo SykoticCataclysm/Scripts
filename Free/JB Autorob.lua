@@ -50,7 +50,7 @@ Airdrop.BorderSizePixel = 0
 Airdrop.Position = UDim2.new(1, -10, 1, -70)
 Airdrop.Size = UDim2.new(0, 50, 0, 35)
 Airdrop.Font = Enum.Font.SourceSans
-Airdrop.Text = "Airdrops : 0"
+Airdrop.Text = "Airdrop"
 Airdrop.TextColor3 = Color3.new(1, 0, 0)
 Airdrop.TextSize = 24
 Airdrop.TextStrokeTransparency = 0.5
@@ -71,52 +71,18 @@ local BankIsOpen = false
 local JewIsOpen = false
 local Airdrops = {}
 
+for i, v in ipairs(workspace.Buildings:GetChildren()) do
+	if (v.Position - Vector3.new(560.544556, 25.0398712, 1159.97266)).magnitude < 5 then
+		v.CanCollide = false
+	end
+end
+
 Plr.CharacterAdded:Connect(function(char)
 	Root = char:WaitForChild("HumanoidRootPart")
 	Char = char
 	_G.AutoRobOn = false
 	wait()
 	_G.AutoRobOn = true
-end)
-
-for i, v in pairs(workspace:GetChildren()) do
-	if v.Name == "Drop" then
-		repeat wait() until v:FindFirstChild("Parachute") == nil
-		table.insert(Airdrops, #Airdrops + 1, v:WaitForChild("Briefcase"))
-	end
-	Airdrop.Text = "Airdrops : " .. tostring(#Airdrops)
-	if #Airdrops > 0 then
-		Airdrop.TextColor3 = Color3.new(0, 1, 0)
-	else
-		Airdrop.TextColor3 = Color3.new(1, 0, 0)
-	end
-end
-
-workspace.ChildAdded:Connect(function(child)
-	if child.Name == "Drop" then
-		repeat wait() until child:FindFirstChild("Parachute") == nil
-		table.insert(Airdrops, #Airdrops + 1, child:WaitForChild("Briefcase"))
-	end
-	Airdrop.Text = "Airdrops : " .. tostring(#Airdrops)
-	if #Airdrops > 0 then
-		Airdrop.TextColor3 = Color3.new(0, 1, 0)
-	else
-		Airdrop.TextColor3 = Color3.new(1, 0, 0)
-	end
-end)
-
-workspace.ChildRemoved:Connect(function(child)
-	for i, v in pairs(Airdrops) do
-		if v == child then
-			table.remove(Airdrops, i)
-		end
-	end
-	Airdrop.Text = "Airdrops : " .. tostring(#Airdrops)
-	if #Airdrops > 0 then
-		Airdrop.TextColor3 = Color3.new(0, 1, 0)
-	else
-		Airdrop.TextColor3 = Color3.new(1, 0, 0)
-	end
 end)
 
 function Teleport(Cframe, speed)
@@ -138,11 +104,11 @@ end
 function AbortTP()
 	Abort = true
 	Clipped = false
-	local Cframe = CFrame.new(537.4, 21.6, 1048.8)
+	local Cframe = CFrame.new(554.5, 18.8, 1117.4)
 	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 4, 0)
 	local length = Cframe.p - Root.Position
 	workspace.Gravity = 0
-	for i = 0, length.magnitude, 3.5 do
+	for i = 0, length.magnitude do
 		Root.CFrame = cf0 + length.Unit * i
 		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
 		wait()
@@ -150,6 +116,7 @@ function AbortTP()
 	Clipped = true
 	workspace.Gravity = 196.2
 	Root.CFrame = Cframe
+	wait(5)
 	Abort = false
 end
 
@@ -222,7 +189,7 @@ function RobJewelry()
 	wait(0.2)
 	Teleport(CFrame.new(116.3, 117.9, 1307), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(-229.8, 27, 1602.3), 3)
+	Teleport(CFrame.new(-229.8, 30, 1602.3), 3)
 end
 
 -- Bank --
@@ -292,8 +259,8 @@ spawn(function()
 					Robbing = true
 					RobAirdrop()
 					Robbing = false
-				elseif (Vector3.new(537.4, 21.6, 1048.8) - Root.Position).magnitude > 10 then
-					Teleport(CFrame.new(537.4, 21.6, 1048.8), 3.5)
+				elseif (Vector3.new(554.5, 18.8, 1117.4) - Root.Position).magnitude > 5 then
+					Teleport(CFrame.new(554.5, 18.8, 1117.4), 3.5)
 				end
 			end
 		end

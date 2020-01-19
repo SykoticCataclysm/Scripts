@@ -152,9 +152,9 @@ end
 
 function UpTP(Cframe)
 	Teleporting = true
-	TP(CFrame.new(Root.Position.X, 150, Root.Position.Z), 3)
+	TP(CFrame.new(Root.Position.X, 145, Root.Position.Z), 3)
 	wait(0.2)
-	TP(CFrame.new(Cframe.p.X, 150, Cframe.p.Z), 3.5)
+	TP(CFrame.new(Cframe.p.X, 145, Cframe.p.Z), 3.5)
 	wait(0.2)
 	TP(Cframe, 1.5)
 	Teleporting = false

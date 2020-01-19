@@ -316,7 +316,7 @@ spawn(function()
 		CheckCops()
 		Airdrops = {}
 		for i, v in pairs(workspace:GetChildren()) do
-			if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil then
+			if v.Name == "Drop" and v:FindFirstChild("Briefcase") and v:FindFirstChild("Parachute") == nil then
 				table.insert(Airdrops, #Airdrops + 1, v.Briefcase)
 			end
 		end

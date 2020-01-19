@@ -314,7 +314,11 @@ end)
 spawn(function()
 	while wait(1) do
 		CheckCops()
-		Airdrops = {}
+		for i, v in pairs(Airdrops) do
+			if v == nil or v.Parent == nil then
+				table.remove(Airdrops, i)
+			end
+		end
 		for i, v in pairs(workspace:GetChildren()) do
 			if v.Name == "Drop" and v:FindFirstChild("Briefcase") and v:FindFirstChild("Parachute") == nil then
 				table.insert(Airdrops, #Airdrops + 1, v.Briefcase)

@@ -266,7 +266,7 @@ function RobMuseum()
 			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true
 		end
 	end
-	UpTP(CFrame.new(1653.6, 51.1, -1769.8))
+	UpTP(CFrame.new(1638.9, 51.1, -1799.1))
 end
 
 -- Airdrop --
@@ -299,7 +299,7 @@ spawn(function()
 	while wait() do
 		if _G.AutoRobOn == true then
 			if Robbing == false then
-				--[[if BankIsOpen == true then
+				if BankIsOpen == true then
 					Robbing = true
 					RobBank()
 					BankIsOpen = false
@@ -311,16 +311,16 @@ spawn(function()
 					JewIsOpen = false
 					JewOpen.TextColor3 = Color3.new(1, 0, 0)
 					Robbing = false
-				else]]if MuseumIsOpen == true then
+				elseif MuseumIsOpen == true then
 					Robbing = true
 					RobMuseum()
 					MuseumIsOpen = false
 					MuseumOpen.TextColor3 = Color3.new(1, 0, 0)
 					Robbing = false
-				--[[elseif #Airdrops > 0 then
+				elseif #Airdrops > 0 then
 					Robbing = true
 					RobAirdrop()
-					Robbing = false]]
+					Robbing = false
 				elseif (Vector3.new(554.5, 20, 1117.4) - Root.Position).magnitude > 15 then
 					UpTP(CFrame.new(554.5, 20, 1117.4), 3.5)
 				end

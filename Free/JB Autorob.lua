@@ -64,6 +64,7 @@ local Root = Char:WaitForChild("HumanoidRootPart")
 
 local Clipped = true
 local Robbing = false
+local Paused = false
 _G.AutoRobOn = true
 
 local BankIsOpen = false
@@ -136,7 +137,9 @@ function CheckCops()
 	for i, v in ipairs(game:GetService("Players"):GetChildren()) do
 		if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Team == game:GetService("Teams").Police then
 			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
+				Paused = true
 				Teleport(CFrame.new(537.4, 21.6, 1048.8), 3.5)
+				Paused = false
 			end
 		end
 	end
@@ -175,9 +178,7 @@ function RobJewelry()
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
-		if CheckCops() == true then
-					return
-				end
+		repeat wait() until Paused == false
 		if not IsBagFull() and b.Transparency < 0.99 then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
@@ -186,16 +187,11 @@ function RobJewelry()
 			else
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position), 3)
 			end
-			if CheckCops() == true then
-					return
-				end
 			wait(0.6)
 			for c = 1, 4 do
 				game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.F, false, game)
 				wait(0.6)
-				if CheckCops() == true then
-					return
-				end
+				repeat wait() until Paused == false
 			end
 			local temp = Collected
 			Collected = temp + 1
@@ -234,11 +230,7 @@ function RobBank()
 	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
 	wait(0.5)
 	Teleport(Bank.Money.CFrame, 3)
-	repeat wait()
-		if CheckCops() == true then
-			return
-		end 
-	until IsBagFull() == true
+	repeat wait() until IsBagFull() == true or Paused == false
 end
 
 -- Airdrop --
@@ -256,7 +248,7 @@ function RobAirdrop()
 	Teleport(Drop.CFrame, 3.5)
 	wait(0.5)
 	game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-	repeat wait() until Drop.Parent == nil
+	repeat wait() until Drop.Parent == nil or Paused == true
 	game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
 
@@ -332,3 +324,9 @@ Plr.Idled:connect(function()
 	game:GetService("VirtualUser"):CaptureController()
 	game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)
+
+-- Cop Detection --
+
+while wait(1) do
+	CheckCops()
+end

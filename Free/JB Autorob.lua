@@ -224,7 +224,7 @@ function RobAirdrop()
 	local Drop
 	local Dist = 999999
 	for i, v in pairs(Airdrops) do
-		if (v.Position - Root.Position).magnitude < Dist then
+		if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil and (v.Position - Root.Position).magnitude < Dist then
 			Dist = (v.Position - Root.Position).magnitude
 			Drop = v
 			table.remove(Airdrops, i)
@@ -311,7 +311,19 @@ Plr.Idled:connect(function()
 end)
 
 -- Cop Detection --
-
-while wait(1) do
-	CheckCops()
-end
+spawn(function()
+	while wait(1) do
+		CheckCops()
+		Airdrops = {}
+		for i, v in pairs(workspace:GetChildren()) do
+			if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil then
+				table.insert(Airdrops, #Airdrops + 1, v.Briefcase)
+			end
+		end
+		if #Airdrops > 0 then
+			Airdrop.TextColor3 = Color3.new(0, 1, 0)
+		else
+			Airdrop.TextColor3 = Color3.new(1, 0, 0)
+		end
+	end	
+end)

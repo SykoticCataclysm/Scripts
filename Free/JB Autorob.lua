@@ -77,6 +77,30 @@ for i, v in ipairs(workspace.Buildings:GetChildren()) do
 	end
 end
 
+for i, v in ipairs(workspace:GetChildren()) do
+	if v.Name == "Drop" and v:FindFirstChild("Briefcase") then
+		repeat wait() until v:FindFirstChild("Parachute") == nil
+		table.insert(Airdrops, #Airdrops + 1, v)
+	end
+end
+
+workspace.ChildAdded:Connect(function(child)
+	if child.Name == "Drop" then
+		repeat wait() until child:FindFirstChild("Parachute") == nil and child:FindFirstChild("Briefcase")
+		table.insert(Airdrops, #Airdrops + 1, child)
+	end
+end)
+
+workspace.ChildRemoved:Connect(function(child)
+	if child.Name == "Drop" then
+		for i, v in pairs(Airdrops) do
+			if v == child then
+				table.remove(Airdrops, i)
+			end
+		end
+	end
+end)
+
 Plr.CharacterAdded:Connect(function(char)
 	Root = char:WaitForChild("HumanoidRootPart")
 	Char = char
@@ -118,16 +142,6 @@ function AbortTP()
 	Root.CFrame = Cframe
 	wait(5)
 	Abort = false
-end
-
-function CheckCops()
-	for i, v in ipairs(game:GetService("Players"):GetChildren()) do
-		if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Team == game:GetService("Teams").Police then
-			if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
-				AbortTP()
-			end
-		end
-	end
 end
 
 game:GetService("RunService").Stepped:Connect(function()
@@ -224,13 +238,17 @@ function RobAirdrop()
 	local Drop
 	local Dist = 999999
 	for i, v in pairs(Airdrops) do
-		if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil and (v.Position - Root.Position).magnitude < Dist then
-			Dist = (v.Position - Root.Position).magnitude
+		if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil and (v.Briefcase.Position - Root.Position).magnitude < Dist then
+			Dist = (v.Briefcase.Position - Root.Position).magnitude
 			Drop = v
 			table.remove(Airdrops, i)
 		end
 	end
-	Teleport(Drop.CFrame, 3.5)
+	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3)
+	wait(0.2)
+	Teleport(CFrame.new(Drop.Briefcase.CFrame.p.X, 120, Drop.Briefcase.CFrame.p.Z), 3.5)
+	wait(0.2)
+	Teleport(Drop.Briefcase.CFrame, 2)
 	wait(0.5)
 	game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
 	repeat wait() until Drop.Parent == nil or Abort == true
@@ -311,23 +329,15 @@ Plr.Idled:connect(function()
 end)
 
 -- Cop Detection --
+
 spawn(function()
 	while wait(1) do
-		CheckCops()
-		for i, v in pairs(Airdrops) do
-			if v == nil or v.Parent == nil then
-				table.remove(Airdrops, i)
+		for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
+			if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
+				if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
+					AbortTP()
+				end
 			end
-		end
-		for i, v in pairs(workspace:GetChildren()) do
-			if v.Name == "Drop" and v:FindFirstChild("Briefcase") and v:FindFirstChild("Parachute") == nil then
-				table.insert(Airdrops, #Airdrops + 1, v.Briefcase)
-			end
-		end
-		if #Airdrops > 0 then
-			Airdrop.TextColor3 = Color3.new(0, 1, 0)
-		else
-			Airdrop.TextColor3 = Color3.new(1, 0, 0)
 		end
 	end	
 end)

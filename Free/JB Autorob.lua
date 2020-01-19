@@ -39,6 +39,23 @@ BankOpen.TextSize = 24
 BankOpen.TextStrokeTransparency = 0.5
 BankOpen.TextXAlignment = Enum.TextXAlignment.Right
 
+local MuseumOpen = Instance.new("TextLabel")
+
+MuseumOpen.Name = "MuseumOpen"
+MuseumOpen.Parent = RobGui
+MuseumOpen.AnchorPoint = Vector2.new(1, 1)
+MuseumOpen.BackgroundColor3 = Color3.new(1, 1, 1)
+MuseumOpen.BackgroundTransparency = 1
+MuseumOpen.BorderSizePixel = 0
+MuseumOpen.Position = UDim2.new(1, -10, 1, -70)
+MuseumOpen.Size = UDim2.new(0, 50, 0, 35)
+MuseumOpen.Font = Enum.Font.SourceSans
+MuseumOpen.Text = "Museum"
+MuseumOpen.TextColor3 = Color3.new(1, 0, 0)
+MuseumOpen.TextSize = 24
+MuseumOpen.TextStrokeTransparency = 0.5
+MuseumOpen.TextXAlignment = Enum.TextXAlignment.Right
+
 local Airdrop = Instance.new("TextLabel")
 
 Airdrop.Name = "AirdropLanded"
@@ -47,7 +64,7 @@ Airdrop.AnchorPoint = Vector2.new(1, 1)
 Airdrop.BackgroundColor3 = Color3.new(1, 1, 1)
 Airdrop.BackgroundTransparency = 1
 Airdrop.BorderSizePixel = 0
-Airdrop.Position = UDim2.new(1, -10, 1, -70)
+Airdrop.Position = UDim2.new(1, -10, 1, -105)
 Airdrop.Size = UDim2.new(0, 50, 0, 35)
 Airdrop.Font = Enum.Font.SourceSans
 Airdrop.Text = "Airdrop(s)"
@@ -70,6 +87,7 @@ _G.AutoRobOn = true
 
 local BankIsOpen = false
 local JewIsOpen = false
+local MuseumIsOpen = false
 local Airdrops = {}
 
 for i, v in ipairs(workspace.Buildings:GetChildren()) do
@@ -134,9 +152,9 @@ end
 
 function UpTP(Cframe)
 	Teleporting = true
-	TP(Root.Position.X, 120, Root.Position.Z, 3)
+	TP(CFrame.new(Root.Position.X, 150, Root.Position.Z), 3)
 	wait(0.2)
-	TP(Cframe.p.X, 120, Cframe.p.Z, 3.5)
+	TP(CFrame.new(Cframe.p.X, 150, Cframe.p.Z), 3.5)
 	wait(0.2)
 	TP(Cframe, 1.5)
 	Teleporting = false
@@ -154,12 +172,21 @@ end)
 
 -- Auto Rob --
 
-local function NumFromStr(str)
+function NumFromStr(str)
 	return tonumber((tostring(str):gsub("%D", "")))
 end
 
-local function IsBagFull()
-	return Plr.PlayerGui.MainGui.CollectMoney.Visible and NumFromStr(Plr.PlayerGui.MainGui.CollectMoney.Money.Text) + 2 > NumFromStr(Plr.PlayerGui.MainGui.CollectMoney.Maximum.Text)
+local CollectMoney = Plr.PlayerGui.MainGui.CollectMoney
+
+function IsBagFull()
+	return CollectMoney.Visible and NumFromStr(CollectMoney.Money.Text) + 2 > NumFromStr(CollectMoney.Maximum.Text)
+end
+
+local MuseumBag = Plr.PlayerGui.MainGui.MuseumBag.TextLabel
+
+function MuseumBagFull()
+	local Strings = string.split(MuseumBag.Text, " ")
+	return Strings[1] == Strings[3]
 end
 
 -- Jewelry Store --
@@ -220,6 +247,28 @@ function RobBank()
 	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
 end
 
+-- Museum --
+
+function RobMuseum()
+	UpTP(CFrame.new(1085.8, 143.8, 1201.7))
+	local Museum = workspace:FindFirstChild("Museum")
+	for i, v in ipairs(Museum.CaseLasers:GetChildren()) do
+		v:Destroy()
+	end
+	for i, v in ipairs(Museum.Dino:GetChildren()) do
+		if v.Transparency < 0.99 and MuseumBagFull() == false and MuseumIsOpen == true then
+			repeat 
+				TP(CFrame.new(v.Position.X, v.Position.Y + 2, v.Position.Z), 2)
+				wait(0.5)
+				game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+				wait(2)
+				game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true
+		end
+	end
+	UpTP(CFrame.new(1653.6, 51.1, -1769.8))
+end
+
 -- Airdrop --
 
 function RobAirdrop()
@@ -232,12 +281,13 @@ function RobAirdrop()
 		end
 	end
 	if Drop ~= nil then
-		UpTP(Drop.Briefcase.CFrame)
+		local Loc = Drop.Briefcase.CFrame
+		UpTP(Loc)
 		repeat
-			TP(Drop.Briefcase.CFrame, 1.5)
+			TP(Loc, 1.5)
 			wait(0.5)
 			game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-			wait(5.5)
+			wait(7)
 			game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 		until Drop == nil or Drop.Parent == nil or Abort == true
 	end
@@ -249,7 +299,7 @@ spawn(function()
 	while wait() do
 		if _G.AutoRobOn == true then
 			if Robbing == false then
-				if BankIsOpen == true then
+				--[[if BankIsOpen == true then
 					Robbing = true
 					RobBank()
 					BankIsOpen = false
@@ -261,10 +311,16 @@ spawn(function()
 					JewIsOpen = false
 					JewOpen.TextColor3 = Color3.new(1, 0, 0)
 					Robbing = false
-				elseif #Airdrops > 0 then
+				else]]if MuseumIsOpen == true then
+					Robbing = true
+					RobMuseum()
+					MuseumIsOpen = false
+					MuseumOpen.TextColor3 = Color3.new(1, 0, 0)
+					Robbing = false
+				--[[elseif #Airdrops > 0 then
 					Robbing = true
 					RobAirdrop()
-					Robbing = false
+					Robbing = false]]
 				elseif (Vector3.new(554.5, 20, 1117.4) - Root.Position).magnitude > 15 then
 					UpTP(CFrame.new(554.5, 20, 1117.4), 3.5)
 				end
@@ -306,6 +362,23 @@ BankSign:GetPropertyChangedSignal("Transparency"):Connect(function()
 	else
 		BankIsOpen = false
 		BankOpen.TextColor3 = Color3.new(1, 0, 0)
+	end
+end)
+
+local MuseumGap = workspace:FindFirstChild("Museum").Roof.Hole.Part
+
+if MuseumGap.Transparency > 0.99 then
+	MuseumIsOpen = true
+	MuseumOpen.TextColor3 = Color3.new(0, 1, 0)
+end
+
+MuseumGap:GetPropertyChangedSignal("Transparency"):Connect(function()
+	if MuseumGap.Transparency > 0.99 then
+		MuseumIsOpen = true
+		MuseumOpen.TextColor3 = Color3.new(0, 1, 0)
+	else
+		MuseumIsOpen = false
+		MuseumOpen.TextColor3 = Color3.new(1, 0, 0)
 	end
 end)
 

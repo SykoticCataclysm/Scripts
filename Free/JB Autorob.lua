@@ -246,7 +246,6 @@ function RobAirdrop()
 		if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil and (v.Briefcase.Position - Root.Position).magnitude < Dist then
 			Dist = (v.Briefcase.Position - Root.Position).magnitude
 			Drop = v
-			table.remove(Airdrops, i)
 		end
 	end
 	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3)

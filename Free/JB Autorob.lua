@@ -41,7 +41,7 @@ BankOpen.TextXAlignment = Enum.TextXAlignment.Right
 
 local Airdrop = Instance.new("TextLabel")
 
-Airdrop.Name = "BankOpen"
+Airdrop.Name = "AirdropLanded"
 Airdrop.Parent = RobGui
 Airdrop.AnchorPoint = Vector2.new(1, 1)
 Airdrop.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -50,7 +50,7 @@ Airdrop.BorderSizePixel = 0
 Airdrop.Position = UDim2.new(1, -10, 1, -70)
 Airdrop.Size = UDim2.new(0, 50, 0, 35)
 Airdrop.Font = Enum.Font.SourceSans
-Airdrop.Text = "Airdrop"
+Airdrop.Text = "Airdrop(s)"
 Airdrop.TextColor3 = Color3.new(1, 0, 0)
 Airdrop.TextSize = 24
 Airdrop.TextStrokeTransparency = 0.5
@@ -325,7 +325,7 @@ spawn(function()
 				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
 					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
 						Abort = true
-						Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
+						UpTP(CFrame.new(554.5, 20, 1117.4))
 						Abort = false
 					end
 				end

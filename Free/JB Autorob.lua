@@ -191,7 +191,7 @@ function RobJewelry()
 	wait(0.2)
 	Teleport(CFrame.new(116.3, 117.9, 1307), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(-229.8, 45, 1602.3), 3)
+	Teleport(CFrame.new(-229.8, 30, 1602.3), 3)
 end
 
 -- Bank --
@@ -234,11 +234,13 @@ function RobAirdrop()
 		wait(0.2)
 		Teleport(CFrame.new(Drop.Briefcase.CFrame.p.X, 120, Drop.Briefcase.CFrame.p.Z), 3.5)
 		wait(0.2)
-		Teleport(Drop.Briefcase.CFrame, 2)
-		wait(0.5)
-		game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-		repeat wait() until Drop.Parent == nil or Abort == true
-		game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+		repeat
+			Teleport(Drop.Briefcase.CFrame, 2)
+			wait(0.5)
+			game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+			wait(5.5)
+			game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+		until Drop == nil or Drop.Parent == nil or Abort == true
 	end
 end
 
@@ -322,7 +324,7 @@ spawn(function()
 		if Teleporting == false then
 			for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
 				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
-					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 20 then
+					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
 						Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
 					end
 				end

@@ -116,11 +116,10 @@ end)
 
 function Teleport(Cframe, speed)
 	Clipped = false
-	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 4, 0)
+	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 6, 0)
 	local length = Cframe.p - Root.Position
 	workspace.Gravity = 0
 	for i = 0, length.magnitude, speed do
-		if Abort == true then break end
 		Root.CFrame = cf0 + length.Unit * i
 		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
 		wait()
@@ -128,25 +127,6 @@ function Teleport(Cframe, speed)
 	Clipped = true
 	workspace.Gravity = 196.2
 	Root.CFrame = Cframe
-end
-
-function AbortTP()
-	Abort = true
-	Clipped = false
-	local Cframe = CFrame.new(554.5, 18.8, 1117.4)
-	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 4, 0)
-	local length = Cframe.p - Root.Position
-	workspace.Gravity = 0
-	for i = 0, length.magnitude do
-		Root.CFrame = cf0 + length.Unit * i
-		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
-		wait()
-	end 
-	Clipped = true
-	workspace.Gravity = 196.2
-	Root.CFrame = Cframe
-	wait(5)
-	Abort = false
 end
 
 game:GetService("RunService").Stepped:Connect(function()
@@ -225,9 +205,7 @@ function RobBank()
 	local Door = Bank.Door.Hinge
 	if Bank:FindFirstChild("Lasers") then
 		for i, v in pairs(Bank.Lasers:GetChildren()) do
-			if v.Name == "LaserTrack" then
-				v:Destroy()
-			end
+			v:Destroy()
 		end
 	end
 	wait(1)
@@ -240,23 +218,25 @@ end
 -- Airdrop --
 
 function RobAirdrop()
-	local Drop
+	local Drop = nil
 	local Dist = 999999
 	for i, v in pairs(Airdrops) do
-		if v.Name == "Drop" and v:FindFirstChild("Parachute") == nil and (v.Briefcase.Position - Root.Position).magnitude < Dist then
+		if 	(v.Briefcase.Position - Root.Position).magnitude < Dist then
 			Dist = (v.Briefcase.Position - Root.Position).magnitude
 			Drop = v
 		end
 	end
-	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3)
-	wait(0.2)
-	Teleport(CFrame.new(Drop.Briefcase.CFrame.p.X, 120, Drop.Briefcase.CFrame.p.Z), 3.5)
-	wait(0.2)
-	Teleport(Drop.Briefcase.CFrame, 2)
-	wait(0.5)
-	game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-	repeat wait() until Drop.Parent == nil or Abort == true
-	game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+	if Drop ~= nil then
+		Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3)
+		wait(0.2)
+		Teleport(CFrame.new(Drop.Briefcase.CFrame.p.X, 120, Drop.Briefcase.CFrame.p.Z), 3.5)
+		wait(0.2)
+		Teleport(Drop.Briefcase.CFrame, 2)
+		wait(0.5)
+		game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+		repeat wait() until Drop.Parent == nil or Abort == true
+		game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+	end
 end
 
 -- Controller --
@@ -281,8 +261,8 @@ spawn(function()
 					Robbing = true
 					RobAirdrop()
 					Robbing = false
-				elseif (Vector3.new(554.5, 18.8, 1117.4) - Root.Position).magnitude > 5 then
-					Teleport(CFrame.new(554.5, 18.8, 1117.4), 3.5)
+				elseif (Vector3.new(554.5, 20, 1117.4) - Root.Position).magnitude > 15 then
+					Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
 				end
 			end
 		end
@@ -339,7 +319,7 @@ spawn(function()
 		for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
 			if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
 				if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
-					AbortTP()
+					Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
 				end
 			end
 		end

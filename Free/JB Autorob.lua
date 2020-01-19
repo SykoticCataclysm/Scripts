@@ -281,7 +281,7 @@ spawn(function()
 					Robbing = true
 					RobAirdrop()
 					Robbing = false
-				elseif (Vector3.new(554.5, 18.8, 1117.4) - Root.Position).magnitude > 5 then
+				elseif (Vector3.new(554.5, 18.8, 1117.4) - Root.Position).magnitude > 15 then
 					Teleport(CFrame.new(554.5, 18.8, 1117.4), 3.5)
 				end
 			end

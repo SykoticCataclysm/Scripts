@@ -115,7 +115,7 @@ Plr.CharacterAdded:Connect(function(char)
 	_G.AutoRobOn = true
 end)
 
-function Teleport(Cframe, speed)
+function TP(Cframe, speed)
 	Teleporting = true
 	Clipped = false
 	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 6, 0)
@@ -129,6 +129,16 @@ function Teleport(Cframe, speed)
 	Clipped = true
 	workspace.Gravity = 196.2
 	Root.CFrame = Cframe
+	Teleporting = false
+end
+
+function UpTP(Cframe)
+	Teleporting = true
+	TP(Root.Position.X, 120, Root.Position.Z, 3)
+	wait(0.2)
+	TP(Cframe.p.X, 120, Cframe.p.Z, 3.5)
+	wait(0.2)
+	TP(Cframe, 1.5)
 	Teleporting = false
 end
 
@@ -155,24 +165,20 @@ end
 -- Jewelry Store --
 
 function RobJewelry()
-	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3.5)
-	wait(0.2)
-	Teleport(CFrame.new(143.7, 120, 1351.5), 3.5)
-	wait(0.2)
-	Teleport(CFrame.new(143.7, 19.1, 1351.5), 1.5)
+	UpTP(CFrame.new(143.7, 19.1, 1351.5))
 	wait(1)
-	Teleport(CFrame.new(126.3, 19, 1316.9), 3)
+	TP(CFrame.new(126.3, 19, 1316.9), 3)
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
 		repeat wait() until Abort == false
 		if not IsBagFull() and b.Transparency < 0.99 and JewIsOpen == true then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
-				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
+				TP(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
 			elseif b.Position.Z < 1309 and b.Position.Z > 1304 then
-				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, 2.5), b.Position), 3)
+				TP(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, 2.5), b.Position), 3)
 			else
-				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position), 3)
+				TP(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position), 3)
 			end
 			wait(0.6)
 			for c = 1, 4 do
@@ -185,25 +191,21 @@ function RobJewelry()
 			wait(0.5)
 		end
 	end
-	Teleport(CFrame.new(154, 18.8, 1270.9), 3)
+	TP(CFrame.new(154, 18.8, 1270.9), 3)
 	wait(0.2)
-	Teleport(CFrame.new(141.6, 117.9, 1274.4), 3.5)
+	TP(CFrame.new(141.6, 117.9, 1274.4), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(116.3, 117.9, 1307), 3.5)
+	TP(CFrame.new(116.3, 117.9, 1307), 3.5)
 	wait(0.2)
-	Teleport(CFrame.new(-229.8, 30, 1602.3), 3)
+	UpTP(CFrame.new(-229.8, 30, 1602.3), 3)
 end
 
 -- Bank --
 
 function RobBank()
-	Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3.5)
-	wait(0.2)
-	Teleport(CFrame.new(12.1, 120, 790.6), 3.5)
-	wait(0.2)
-	Teleport(CFrame.new(12.1, 19.1, 790.6), 1.5)
+	UpTP(CFrame.new(12.1, 19.1, 790.6))
 	wait(1)
-	Teleport(CFrame.new(25.7, 19.4, 854.3), 3)
+	TP(CFrame.new(25.7, 19.4, 854.3), 3)
 	local Bank = workspace.Banks:GetChildren()[1].Layout:GetChildren()[1]
 	local Door = Bank.Door.Hinge
 	if Bank:FindFirstChild("Lasers") then
@@ -212,9 +214,9 @@ function RobBank()
 		end
 	end
 	wait(1)
-	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
+	TP(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
 	wait(0.5)
-	Teleport(Bank.Money.CFrame, 3)
+	TP(Bank.Money.CFrame, 3)
 	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
 end
 
@@ -230,15 +232,12 @@ function RobAirdrop()
 		end
 	end
 	if Drop ~= nil then
-		Teleport(CFrame.new(Root.Position.X, 120, Root.Position.Z), 3)
-		wait(0.2)
-		Teleport(CFrame.new(Drop.Briefcase.CFrame.p.X, 120, Drop.Briefcase.CFrame.p.Z), 3.5)
-		wait(0.2)
+		UpTP(Drop.Briefcase.CFrame)
 		repeat
-			Teleport(Drop.Briefcase.CFrame, 1.5)
+			TP(Drop.Briefcase.CFrame, 1.5)
 			wait(0.5)
 			game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-			wait(7)
+			wait(5.5)
 			game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 		until Drop == nil or Drop.Parent == nil or Abort == true
 	end
@@ -267,7 +266,7 @@ spawn(function()
 					RobAirdrop()
 					Robbing = false
 				elseif (Vector3.new(554.5, 20, 1117.4) - Root.Position).magnitude > 15 then
-					Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
+					UpTP(CFrame.new(554.5, 20, 1117.4), 3.5)
 				end
 			end
 		end

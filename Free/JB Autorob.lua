@@ -238,7 +238,7 @@ function RobAirdrop()
 			Teleport(Drop.Briefcase.CFrame, 1.5)
 			wait(0.5)
 			game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-			wait(5.5)
+			wait(6.5)
 			game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 		until Drop == nil or Drop.Parent == nil or Abort == true
 	end

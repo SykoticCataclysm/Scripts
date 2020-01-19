@@ -164,7 +164,7 @@ function RobJewelry()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
 		repeat wait() until Abort == false
-		if not IsBagFull() and b.Transparency < 0.99 then
+		if not IsBagFull() and b.Transparency < 0.99 and JewIsOpen == true then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				Teleport(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position), 3)
 			elseif b.Position.Z < 1309 and b.Position.Z > 1304 then
@@ -215,7 +215,7 @@ function RobBank()
 	Teleport(Bank.TriggerDoor.CFrame * CFrame.new(0, 0, -2), 3)
 	wait(0.5)
 	Teleport(Bank.Money.CFrame, 3)
-	repeat wait() until IsBagFull() == true or Abort == true
+	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
 end
 
 -- Airdrop --

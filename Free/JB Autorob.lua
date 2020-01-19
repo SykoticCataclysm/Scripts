@@ -65,6 +65,7 @@ local Root = Char:WaitForChild("HumanoidRootPart")
 local Clipped = true
 local Robbing = false
 local Abort = false
+local Teleporting = false
 _G.AutoRobOn = true
 
 local BankIsOpen = false
@@ -115,6 +116,7 @@ Plr.CharacterAdded:Connect(function(char)
 end)
 
 function Teleport(Cframe, speed)
+	Teleporting = true
 	Clipped = false
 	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0, 6, 0)
 	local length = Cframe.p - Root.Position
@@ -127,6 +129,7 @@ function Teleport(Cframe, speed)
 	Clipped = true
 	workspace.Gravity = 196.2
 	Root.CFrame = Cframe
+	Teleporting = false
 end
 
 game:GetService("RunService").Stepped:Connect(function()
@@ -316,10 +319,12 @@ end)
 
 spawn(function()
 	while wait(1) do
-		for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
-			if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
-				if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
-					Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
+		if Teleporting == false then
+			for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
+				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
+					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
+						Teleport(CFrame.new(554.5, 20, 1117.4), 3.5)
+					end
 				end
 			end
 		end

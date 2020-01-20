@@ -175,6 +175,7 @@ function FarTP(Cframe)
 					v:Destroy()
 				end
 			end
+			wait(1)
 		end
 	until Car ~= nil
 	wait(0.5)

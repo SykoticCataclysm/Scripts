@@ -134,7 +134,7 @@ Plr.CharacterAdded:Connect(function(char)
 	Hum = char:FindFirstChildOfClass("Humanoid")
 	Char = char
 	_G.AutoRobOn = false
-	wait()
+	wait(1)
 	_G.AutoRobOn = true
 end)
 
@@ -445,4 +445,14 @@ spawn(function()
 			end
 		end
 	end	
+end)
+
+-- Arrest Detection --
+
+Plr:GetPropertyChangedSignal("Team"):Connect(function()
+	if Plr.Team == game:GetService("Teams").Prisoner then
+		_G.AutoRobOn = false
+		wait(20)
+		_G.AutoRobOn = true
+	end
 end)

@@ -179,6 +179,7 @@ function FarTP(Cframe)
 		wait()
 		VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 	end
+	repeat wait() until Hum:GetState() == Enum.HumanoidStateType.Seated
 	wait(1)
 	Car.CFrame = Cframe
 	wait(1)

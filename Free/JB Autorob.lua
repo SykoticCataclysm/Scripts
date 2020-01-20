@@ -168,15 +168,31 @@ function FarTP(Cframe)
 	until Car ~= nil
 	Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 	wait(0.5)
-	VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-	wait()
-	VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+	if WRDAPI then
+		repeat
+			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+			wait()
+			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+		until Hum:GetState() == Enum.HumanoidStateType.Seated
+	else
+		VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+		wait()
+		VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+	end
 	wait(1)
 	Car.CFrame = Cframe
 	wait(1)
-	VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-	wait()
-	VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+	if WRDAPI then
+		repeat
+			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+			wait()
+			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
+	else
+		VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+		wait()
+		VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+	end
 	wait(1)
 	Car.Parent.Parent:Destroy()
 	Teleporting = false
@@ -241,6 +257,8 @@ function RobJewelry()
 			wait(0.5)
 		end
 	end
+	FarTP(CFrame.new(116.3, 117.9, 1307))
+	wait(0.2)
 	FarTP(CFrame.new(-229.8, 20, 1602.3))
 end
 

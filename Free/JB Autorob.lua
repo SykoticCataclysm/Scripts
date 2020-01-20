@@ -153,7 +153,6 @@ end
 
 function FarTP(Cframe)
 	Teleporting = true
-	wait(1)
 	local Car = nil
 	for i, v in pairs(workspace.Vehicles:GetChildren()) do
 		if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
@@ -163,7 +162,7 @@ function FarTP(Cframe)
 	if Car ~= nil then
 		Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 		Car.Anchored = true
-		wait(1)
+		wait(0.5)
 		repeat
 			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
 			wait(0.2)
@@ -190,7 +189,7 @@ function FarTP(Cframe)
 	else
 		CloseTP(Cframe)
 	end
-	wait(1)
+	wait(2)
 	Teleporting = false
 end
 
@@ -435,7 +434,7 @@ spawn(function()
 		if Teleporting == false and Robbing == true and RobType == "Bank" then
 			for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
 				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
-					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
+					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 32 then
 						Abort = true
 						FarTP(CFrame.new(554.5, 20, 1117.4))
 						Abort = false

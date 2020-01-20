@@ -133,57 +133,6 @@ Plr.CharacterAdded:Connect(function(char)
 	Root = char:WaitForChild("HumanoidRootPart")
 	Hum = char:FindFirstChildOfClass("Humanoid")
 	Char = char
-	_G.AutoRobOn = false
-	wait(1)
-	_G.AutoRobOn = true
-	spawn(function()
-		while wait(.25) do
-			if _G.AutoRobOn == true then
-				if Robbing == false then
-					if BankIsOpen == true then
-						Robbing = true
-						RobBank()
-						BankIsOpen = false
-						BankOpen.TextColor3 = Color3.new(1, 0, 0)
-						Robbing = false
-					elseif JewIsOpen == true then
-						Robbing = true
-						RobJewelry()
-						JewIsOpen = false
-						JewOpen.TextColor3 = Color3.new(1, 0, 0)
-						Robbing = false
-					elseif MuseumIsOpen == true then
-						Robbing = true
-						RobMuseum()
-						MuseumIsOpen = false
-						MuseumOpen.TextColor3 = Color3.new(1, 0, 0)
-						Robbing = false
-					elseif #Airdrops > 0 then
-						Robbing = true
-						RobAirdrop()
-						Robbing = false
-					elseif (Vector3.new(554.5, 20, 1117.4) - Root.Position).magnitude > 15 then
-						FarTP(CFrame.new(554.5, 20, 1117.4), 3.5)
-					end
-				end
-			end
-		end
-	end)
-	spawn(function()
-		while wait() do
-			if Teleporting == false and Robbing == true and RobType == "Bank" then
-				for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
-					if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
-						if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
-							Abort = true
-							FarTP(CFrame.new(554.5, 20, 1117.4))
-							Abort = false
-						end
-					end
-				end
-			end
-		end	
-	end)
 end)
 
 function CloseTP(Cframe)
@@ -226,7 +175,10 @@ function FarTP(Cframe)
 			return
 		end
 		wait(1)
-		Car.CFrame = Cframe
+		for i = 0, 10 do
+			Car.CFrame = Cframe
+			wait()
+		end
 		wait(1)
 		repeat
 			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
@@ -493,14 +445,4 @@ spawn(function()
 			end
 		end
 	end	
-end)
-
--- Arrest Detection --
-
-Plr:GetPropertyChangedSignal("Team"):Connect(function()
-	if Plr.Team == game:GetService("Teams").Prisoner then
-		_G.AutoRobOn = false
-		wait(20)
-		_G.AutoRobOn = true
-	end
 end)

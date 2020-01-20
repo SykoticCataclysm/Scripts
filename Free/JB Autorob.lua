@@ -1,7 +1,3 @@
-for i = 0, 5 do
-	warn("Starting... " .. tostring(5 - i))
-	wait(1)
-end
 
 -- Gui
 
@@ -180,16 +176,20 @@ function FarTP(Cframe)
 		end
 		wait(1)
 	end
-	wait(1)
-	Car.CFrame = Cframe
-	wait(1)
-	repeat
-		VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-		wait()
-		VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-	until Hum:GetState() ~= Enum.HumanoidStateType.Seated
-	wait(1)
-	Car.Parent.Parent:Destroy()
+	if Car ~= nil then
+		wait(1)
+		Car.CFrame = Cframe
+		wait(1)
+		repeat
+			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+			wait()
+			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
+		wait(1)
+		Car.Parent.Parent:Destroy()
+	else
+		CloseTP(Cframe)
+	end
 	Teleporting = false
 end
 

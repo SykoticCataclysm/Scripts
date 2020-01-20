@@ -434,7 +434,7 @@ spawn(function()
 		if Teleporting == false and Robbing == true and RobType == "Bank" then
 			for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
 				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
-					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 15 then
+					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 40 then
 						Abort = true
 						FarTP(CFrame.new(554.5, 20, 1117.4))
 						Abort = false

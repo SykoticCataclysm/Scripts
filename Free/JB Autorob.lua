@@ -160,7 +160,7 @@ function FarTP(Cframe)
 	local Car = nil
 	repeat
 		for i, v in pairs(workspace.Vehicles:GetChildren()) do
-			if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false and v.Seat:FindFirstChild("PlayerName") and v.Seat.PlayerName.Value == "" then
+			if Car ~= nil and v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false and v.Seat:FindFirstChild("PlayerName") and v.Seat.PlayerName.Value == "" then
 				Car = v.Model.Body
 				Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 				wait(0.5)
@@ -174,7 +174,6 @@ function FarTP(Cframe)
 					Car = nil
 					v:Destroy()
 				end
-				break
 			end
 		end
 	until Car ~= nil

@@ -174,12 +174,7 @@ function FarTP(Cframe)
 			return
 		end
 		wait(1)
-		for i = 0, 10 do
-			Car.CFrame = Cframe + Vector3.new(0, 2, 0)
-			wait()
-			Car.CFrame = Cframe
-			wait()
-		end
+		Car.CFrame = Cframe + Vector3.new(0, 4, 0)
 		wait(1)
 		repeat
 			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)

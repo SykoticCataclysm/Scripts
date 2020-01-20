@@ -158,28 +158,24 @@ function FarTP(Cframe)
 	Teleporting = true
 	wait(1)
 	local Car = nil
-	repeat
-		for i, v in pairs(workspace.Vehicles:GetChildren()) do
-			if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
-				Car = v.Model.Body
-				Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
-				wait(0.5)
-				repeat
-					VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-					wait(0.25)
-					VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-					wait(0.25)
-				until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
-				if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
-					Car = nil
-					v:Destroy()
-				end
+	for i, v in pairs(workspace.Vehicles:GetChildren()) do
+		if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
+			Car = v.Model.Body
+			Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
+			wait(0.5)
+			repeat
+				VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+				wait(0.25)
+				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+				wait(0.25)
+			until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
+			if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
+				Car = nil
+				v:Destroy()
 			end
-			if Car ~= nil then break end
-			wait(1)
 		end
 		wait(1)
-	until Car ~= nil
+	end
 	wait(0.5)
 	repeat
 		VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)

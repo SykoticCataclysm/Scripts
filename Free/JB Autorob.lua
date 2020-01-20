@@ -170,7 +170,11 @@ function FarTP(Cframe)
 			wait()
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 			wait()
-		until Hum:GetState() == Enum.HumanoidStateType.Seated
+		until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
+		if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
+			CloseTP(Cframe)
+			return
+		end
 		wait(1)
 		Car.CFrame = Cframe
 		wait(1)
@@ -185,6 +189,7 @@ function FarTP(Cframe)
 	else
 		CloseTP(Cframe)
 	end
+	wait(1)
 	Teleporting = false
 end
 

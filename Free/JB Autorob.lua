@@ -155,28 +155,35 @@ function CloseTP(Cframe)
 	Teleporting = false
 end
 
+function GetCar()
+	local Cars = {}
+	for i, v in pairs(workspace.Vehicles:GetChildren()) do
+		if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
+			table.insert(Cars, #Cars + 1, v)
+		end
+	end
+	return Cars[math.random(1, #Cars)].Model.Body
+end
+
 function FarTP(Cframe)
 	Teleporting = true
 	wait(1)
 	local Car = nil
-	for i, v in pairs(workspace.Vehicles:GetChildren()) do
-		if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
-			Car = v.Model.Body
-			Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
-			wait(0.5)
-			repeat
-				VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-				wait(0.25)
-				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-				wait(1)
-			until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
-			if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
-				Car = nil
-				v:Destroy()
-			end
+	local Count = 0
+	repeat wait(1)
+		local temp = Count
+		Count = temp + 1
+		Car = GetCar()
+		Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
+		repeat
+			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+			wait()
+			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+		until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
+		if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
+			Car = nil
 		end
-		wait(1)
-	end
+	until Car ~= nil or Count == 10
 	if Car ~= nil then
 		wait(1)
 		Car.CFrame = Cframe

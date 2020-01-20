@@ -175,7 +175,7 @@ function FarTP(Cframe)
 		Count = temp + 1
 		Car = GetCar()
 		Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
-		repeat
+		repeat wait()
 			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
 			wait()
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)

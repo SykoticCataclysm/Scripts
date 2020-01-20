@@ -182,9 +182,9 @@ function FarTP(Cframe)
 		wait(1)
 		repeat
 			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-			wait()
+			wait(0.2)
 			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-			wait()
+			wait(1)
 		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
 		wait(1)
 		Car.Parent.Parent:Destroy()

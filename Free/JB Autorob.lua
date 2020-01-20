@@ -157,10 +157,10 @@ end
 function FarTP(Cframe)
 	Teleporting = true
 	wait(1)
-	local Car = ""
+	local Car = nil
 	repeat
 		for i, v in pairs(workspace.Vehicles:GetChildren()) do
-			if Car ~= "" and v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
+			if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
 				Car = v.Model.Body
 				Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 				wait(0.5)
@@ -171,10 +171,11 @@ function FarTP(Cframe)
 					wait(0.25)
 				until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
 				if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
-					Car = ""
+					Car = nil
 					v:Destroy()
 				end
 			end
+			if Car ~= nil then break end
 			wait(1)
 		end
 		wait(1)

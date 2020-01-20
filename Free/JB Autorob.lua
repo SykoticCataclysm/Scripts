@@ -307,6 +307,8 @@ function RobMuseum()
 	CloseTP(CFrame.new(1085.8, 143.8, 1201.7))
 	if string.split(MuseumBag.Text, " ")[1] ~= "0" then
 		FarTP(CFrame.new(1638.9, 51.1, -1799.1))
+		wait(0.25)
+		CloseTP(CFrame.new(1638.9, 51.1, -1799.1))
 	end
 end
 

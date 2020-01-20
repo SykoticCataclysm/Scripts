@@ -1,4 +1,3 @@
-
 -- Gui
 
 local RobGui = Instance.new("ScreenGui")
@@ -162,22 +161,16 @@ function FarTP(Cframe)
 	for i, v in pairs(workspace.Vehicles:GetChildren()) do
 		if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
 			Car = v.Model.Body
-			Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
-			wait(0.5)
-			repeat wait()
-				VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-				wait()
-				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-				wait()
-			until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
-			if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
-				Car = nil
-				v:Destroy()
-			end
 		end
-		wait(1)
 	end
 	if Car ~= nil then
+		Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
+		repeat
+			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+			wait()
+			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+			wait()
+		until Hum:GetState() == Enum.HumanoidStateType.Seated
 		wait(1)
 		Car.CFrame = Cframe
 		wait(1)
@@ -185,6 +178,7 @@ function FarTP(Cframe)
 			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
 			wait()
 			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+			wait()
 		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
 		wait(1)
 		Car.Parent.Parent:Destroy()

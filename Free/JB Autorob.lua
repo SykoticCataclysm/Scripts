@@ -164,11 +164,11 @@ function FarTP(Cframe)
 			Car = v.Model.Body
 			Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 			wait(0.5)
-			repeat
+			repeat wait()
 				VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-				wait(0.25)
+				wait()
 				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-				wait(1)
+				wait()
 			until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
 			if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
 				Car = nil

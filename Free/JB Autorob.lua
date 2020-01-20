@@ -1,3 +1,8 @@
+for i = 0, 5 do
+	warn("Starting... " .. tostring(5 - i))
+	wait(1)
+end
+
 -- Gui
 
 local RobGui = Instance.new("ScreenGui")

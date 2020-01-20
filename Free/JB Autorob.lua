@@ -173,9 +173,8 @@ function FarTP(Cframe)
 				if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
 					Car = nil
 					v:Destroy()
-				else
-					break
 				end
+				break
 			end
 		end
 	until Car ~= nil

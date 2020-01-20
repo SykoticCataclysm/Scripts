@@ -168,32 +168,20 @@ function FarTP(Cframe)
 	until Car ~= nil
 	Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 	wait(0.5)
-	if WRDAPI then
-		repeat
-			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-			wait()
-			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-		until Hum:GetState() == Enum.HumanoidStateType.Seated
-	else
+	repeat
 		VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-		wait()
+		wait(0.25)
 		VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-	end
-	repeat wait() until Hum:GetState() == Enum.HumanoidStateType.Seated
+		wait(0.25)
+	until Hum:GetState() == Enum.HumanoidStateType.Seated
 	wait(1)
 	Car.CFrame = Cframe
 	wait(1)
-	if WRDAPI then
-		repeat
-			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-			wait()
-			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
-	else
+	repeat
 		VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
 		wait()
 		VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-	end
+	until Hum:GetState() ~= Enum.HumanoidStateType.Seated
 	wait(1)
 	Car.Parent.Parent:Destroy()
 	Teleporting = false

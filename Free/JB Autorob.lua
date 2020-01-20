@@ -166,6 +166,7 @@ function FarTP(Cframe)
 	if Car ~= nil then
 		Car.CFrame = Root.CFrame * CFrame.new(-5, 0, -2)
 		Car.Anchored = true
+		wait(1)
 		repeat
 			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
 			wait(0.2)

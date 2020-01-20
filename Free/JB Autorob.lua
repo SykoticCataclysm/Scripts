@@ -166,14 +166,16 @@ function FarTP(Cframe)
 			wait(0.5)
 			repeat
 				VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-				wait(0.1)
+				wait(0.25)
 				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+				wait(0.25)
 			until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
 			if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
 				Car = nil
 				v:Destroy()
 			end
 		end
+		wait(1)
 	end
 	if Car ~= nil then
 		wait(1)

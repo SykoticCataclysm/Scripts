@@ -171,9 +171,9 @@ function FarTP(Cframe)
 					wait(0.25)
 				until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
 				if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
+					Car = nil
 					v:Destroy()
 				end
-				Car = nil
 			end
 		end
 	until Car ~= nil

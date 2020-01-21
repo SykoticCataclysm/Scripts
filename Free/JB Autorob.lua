@@ -185,7 +185,7 @@ function FarTP(Cframe)
 			wait(1)
 		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
 		wait(1)
-		Car:Destroy()
+		Car.Parent:Destroy()
 	else
 		CloseTP(Cframe)
 	end

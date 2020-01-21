@@ -535,6 +535,14 @@ spawn(function()
 	end	
 end)
 
+-- Arrest Detection --
+
+Plr:GetPropertyChangedSignal("Team"):Connect(function()
+	if Plr.Team == game:GetService("Teams").Prisoner then
+		Abort()
+	end
+end)
+
 -- Update Text --
 
 spawn(function()

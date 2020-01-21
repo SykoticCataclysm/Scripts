@@ -315,9 +315,8 @@ function RobJewelry()
 	wait(1)
 	CloseTP(CFrame.new(126.3, 19, 1316.9))
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
-	local Collected = 0
 	for a, b in pairs(Jewels) do
-		if not IsBagFull() and b.Transparency < 0.99 and JewIsOpen == true and Abort == false then
+		if IsBagFull() == false and JewIsOpen == true and Abort == false then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				CloseTP(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position))
 			elseif b.Position.Z < 1309 and b.Position.Z > 1304 then
@@ -336,8 +335,6 @@ function RobJewelry()
 					return
 				end
 			end
-			local temp = Collected
-			Collected = temp + 1
 			wait(0.5)
 		end
 	end

@@ -291,7 +291,7 @@ function Abort()
 	Abort = true
 	Teleporting = true
 	Clipped = false
-	local Cframe = CFrame.new(554.5, 20, 1117.4)
+	local Cframe = CFrame.new(554.5, 24, 1117.4)
 	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0,4,0)
 	local length = Cframe.p - Root.Position
 	workspace.Gravity = 0
@@ -469,8 +469,8 @@ spawn(function()
 					Robbing = true
 					RobAirdrop()
 					Robbing = false
-				elseif (Vector3.new(554.5, 20, 1117.4) - Root.Position).magnitude > 15 then
-					FarTP(CFrame.new(554.5, 20, 1117.4), 3.5)
+				elseif (Vector3.new(554.5, 24, 1117.4) - Root.Position).magnitude > 15 then
+					FarTP(CFrame.new(554.5, 24, 1117.4), 3.5)
 				end
 			end
 		end

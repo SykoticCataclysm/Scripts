@@ -301,8 +301,7 @@ function RobJewelry()
 	local Jewels = workspace:FindFirstChild("Jewelrys"):GetChildren()[1].Boxes:GetChildren()
 	local Collected = 0
 	for a, b in pairs(Jewels) do
-		repeat wait() until Abort == false
-		if not IsBagFull() and b.Transparency < 0.99 and JewIsOpen == true then
+		if not IsBagFull() and b.Transparency < 0.99 and JewIsOpen == true and Abort == false then
 			if b.Position.X < 120 and b.Position.Z > 1330 then
 				CloseTP(CFrame.new(b.Position + b.CFrame.lookVector * 2.5 + Vector3.new(0, 0, -2.5), b.Position))
 			elseif b.Position.Z < 1309 and b.Position.Z > 1304 then
@@ -310,11 +309,16 @@ function RobJewelry()
 			else
 				CloseTP(CFrame.new(b.Position + b.CFrame.lookVector * 2.5, b.Position))
 			end
+			if Abort == true then
+				return
+			end
 			wait(0.6)
 			for c = 1, 4 do
 				VIM:SendKeyEvent(true, Enum.KeyCode.F, false, game)
 				wait(0.6)
-				repeat wait() until Abort == false
+				if Abort == true then
+					return
+				end
 			end
 			local temp = Collected
 			Collected = temp + 1

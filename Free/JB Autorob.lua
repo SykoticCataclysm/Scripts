@@ -376,7 +376,7 @@ function RobMuseum()
 				VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
 				wait(2)
 				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true
+			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true or MuseumBagFull() == true
 			if Abort == true then
 				Money = Money + GetMuseumBag()
 				if string.split(MuseumBag.Text, " ")[1] ~= "0" then

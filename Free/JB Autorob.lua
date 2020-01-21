@@ -194,6 +194,9 @@ function CloseTP(Cframe)
 	local length = Cframe.p - Root.Position
 	workspace.Gravity = 0
 	for i = 0, length.magnitude, 3 do
+		if Abort == true then 
+			break	
+		end
 		Root.CFrame = cf0 + length.Unit * i
 		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
 		wait()
@@ -286,7 +289,20 @@ end
 
 function Abort()
 	Abort = true
-	FarTP(CFrame.new(554.5, 20, 1117.4))
+	Teleporting = true
+	Clipped = false
+	local Cframe = CFrame.new(554.5, 20, 1117.4)
+	local cf0 = (Cframe - Cframe.p) + Root.Position + Vector3.new(0,4,0)
+	local length = Cframe.p - Root.Position
+	workspace.Gravity = 0
+	for i = 0, length.magnitude, 3 do
+		Root.CFrame = cf0 + length.Unit * i
+		Root.Velocity, Root.RotVelocity = Vector3.new(), Vector3.new()
+		wait()
+	end 
+	Clipped = true
+	workspace.Gravity = 196.2
+	Teleporting = false
 	Aborted = Aborted + 1
 	Abort = false
 end

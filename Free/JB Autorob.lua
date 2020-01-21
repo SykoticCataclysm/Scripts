@@ -347,6 +347,9 @@ function RobBank()
 	wait(0.5)
 	CloseTP(Bank.Money.CFrame)
 	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
+	if Abort == true then
+		return
+	end
 	Money = Money + GetBagMoney()
 	Completed = Completed + 1
 end
@@ -369,6 +372,9 @@ function RobMuseum()
 				wait(2)
 				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true
+			if Abort == true then
+				return
+			end
 		end
 	end
 	CloseTP(CFrame.new(1085.8, 143.8, 1201.7))
@@ -403,6 +409,9 @@ function RobAirdrop()
 			wait(7)
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 		until Drop == nil or Drop.Parent == nil or Abort == true
+		if Abort == true then
+			return
+		end
 		Money = Money + 1500
 		Completed = Completed + 1
 	end

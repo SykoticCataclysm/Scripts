@@ -287,6 +287,7 @@ end
 function Abort()
 	Abort = true
 	FarTP(CFrame.new(554.5, 20, 1117.4))
+	Aborted = Aborted + 1
 	Abort = false
 end
 
@@ -321,9 +322,10 @@ function RobJewelry()
 		end
 	end
 	FarTP(CFrame.new(116.3, 117.9, 1307))
-	Money = Money + GetBagMoney()
 	wait(0.2)
 	FarTP(CFrame.new(-229.8, 20, 1602.3))
+	Money = Money + GetBagMoney()
+	Completed = Completed + 1
 end
 
 -- Bank --
@@ -346,6 +348,7 @@ function RobBank()
 	CloseTP(Bank.Money.CFrame)
 	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
 	Money = Money + GetBagMoney()
+	Completed = Completed + 1
 end
 
 -- Museum --
@@ -375,6 +378,7 @@ function RobMuseum()
 		wait(0.5)
 		CloseTP(CFrame.new(1638.9, 51.1, -1799.1))
 	end
+	Completed = Completed + 1
 end
 
 -- Airdrop --
@@ -400,6 +404,7 @@ function RobAirdrop()
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 		until Drop == nil or Drop.Parent == nil or Abort == true
 		Money = Money + 1500
+		Completed = Completed + 1
 	end
 end
 

@@ -155,7 +155,7 @@ function FarTP(Cframe)
 	Teleporting = true
 	local Car = nil
 	for i, v in pairs(workspace.Vehicles:GetChildren()) do
-		if v.Name == "Camaro" and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
+		if v.Name == "Camaro" and v:FindFirstChild("Model") and v.Model:FindFirstChild("Body") and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == false then
 			Car = v.Model.Body
 		end
 	end

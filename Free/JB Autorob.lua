@@ -519,10 +519,12 @@ end)
 
 -- Update Text --
 
-while wait(1) do
-	if _G.AutoRobOn == true then
-		RobsDone.Text = "Robberies Completed: " .. tostring(Completed)
-		RobsAborted.Text = "Robberies Aborted: " .. tostring(Aborted)
-		MoneyMade.Text = "Money Made: " .. tostring(Money)
+spawn(function()
+	while wait(1) do
+		if _G.AutoRobOn == true then
+			RobsDone.Text = "Robberies Completed: " .. tostring(Completed)
+			RobsAborted.Text = "Robberies Aborted: " .. tostring(Aborted)
+			MoneyMade.Text = "Money Made: " .. tostring(Money)
+		end
 	end
-end
+end)

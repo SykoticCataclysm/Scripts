@@ -276,7 +276,7 @@ end
 local MuseumBag = Plr.PlayerGui.MainGui.MuseumBag.TextLabel
 
 function GetMuseumBag()
-	return tonumber(string.split(MuseumBag.Text, " ")[1])
+	return tonumber(string.split(MuseumBag.Text, " ")[1]) * 800
 end
 
 function MuseumBagFull()

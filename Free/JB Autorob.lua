@@ -72,6 +72,54 @@ Airdrop.TextColor3 = Color3.new(1, 0, 0)
 Airdrop.TextSize = 24
 Airdrop.TextStrokeTransparency = 0.5
 Airdrop.TextXAlignment = Enum.TextXAlignment.Right
+
+local RobsDone = Instance.new("TextLabel")
+
+RobsDone.Name = "RobsDone"
+RobsDone.Parent = RobGui
+RobsDone.AnchorPoint = Vector2.new(0.5, 0.5)
+RobsDone.BackgroundColor3 = Color3.new(1, 1, 1)
+RobsDone.BackgroundTransparency = 1
+RobsDone.BorderColor3 = Color3.new(1, 1, 1)
+RobsDone.Position = UDim2.new(0.5, 0, 0, 80)
+RobsDone.Size = UDim2.new(1, 0, 0, 30)
+RobsDone.Font = Enum.Font.SourceSans
+RobsDone.Text = "Robberies Completed: 0"
+RobsDone.TextColor3 = Color3.new(1, 1, 1)
+RobsDone.TextSize = 22
+RobsDone.TextStrokeTransparency = 0.5
+
+local RobsAborted = Instance.new("TextLabel")
+
+RobsAborted.Name = "RobsAborted"
+RobsAborted.Parent = RobGui
+RobsAborted.AnchorPoint = Vector2.new(0.5, 0.5)
+RobsAborted.BackgroundColor3 = Color3.new(1, 1, 1)
+RobsAborted.BackgroundTransparency = 1
+RobsAborted.BorderColor3 = Color3.new(1, 1, 1)
+RobsAborted.Position = UDim2.new(0.5, 0, 0, 110)
+RobsAborted.Size = UDim2.new(1, 0, 0, 30)
+RobsAborted.Font = Enum.Font.SourceSans
+RobsAborted.Text = "Robberies Aborted: 0"
+RobsAborted.TextColor3 = Color3.new(1, 1, 1)
+RobsAborted.TextSize = 22
+RobsAborted.TextStrokeTransparency = 0.5
+
+local MoneyMade = Instance.new("TextLabel")
+
+MoneyMade.Name = "MoneyMade"
+MoneyMade.Parent = RobGui
+MoneyMade.AnchorPoint = Vector2.new(0.5, 0.5)
+MoneyMade.BackgroundColor3 = Color3.new(1, 1, 1)
+MoneyMade.BackgroundTransparency = 1
+MoneyMade.BorderColor3 = Color3.new(1, 1, 1)
+MoneyMade.Position = UDim2.new(0.5, 0, 0, 140)
+MoneyMade.Size = UDim2.new(1, 0, 0, 30)
+MoneyMade.Font = Enum.Font.SourceSans
+MoneyMade.Text = "Money Made: 0"
+MoneyMade.TextColor3 = Color3.new(1, 1, 1)
+MoneyMade.TextSize = 22
+MoneyMade.TextStrokeTransparency = 0.5
 	
 -- Setup --
 
@@ -93,6 +141,10 @@ local BankIsOpen = false
 local JewIsOpen = false
 local MuseumIsOpen = false
 local Airdrops = {}
+
+local Completed = 0
+local Aborted = 0
+local Money = 0
 
 for i, v in ipairs(workspace.Buildings:GetChildren()) do
 	if (v.Position - Vector3.new(560.544556, 25.0398712, 1159.97266)).magnitude < 5 then
@@ -167,13 +219,13 @@ function FarTP(Cframe)
 			VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
 			wait(0.2)
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-			wait(1)
+			wait(0.5)
 		until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true
 		if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
 			CloseTP(Cframe)
 			return
 		end
-		wait(1)
+		wait(0.5)
 		Car.CFrame = Cframe + Vector3.new(0, 4, 0)
 		wait(0.5)
 		Car.Anchored = false
@@ -182,7 +234,7 @@ function FarTP(Cframe)
 			VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
 			wait(0.2)
 			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-			wait(1)
+			wait(0.5)
 		until Hum:GetState() ~= Enum.HumanoidStateType.Seated
 		wait(1)
 		if Car.Parent ~= nil and Car.Parent.Parent ~= nil then
@@ -213,15 +265,29 @@ end
 
 local CollectMoney = Plr.PlayerGui.MainGui.CollectMoney
 
+function GetBagMoney()
+	return NumFromStr(CollectMoney.Money.Text)
+end
+
 function IsBagFull()
 	return CollectMoney.Visible and NumFromStr(CollectMoney.Money.Text) + 2 > NumFromStr(CollectMoney.Maximum.Text)
 end
 
 local MuseumBag = Plr.PlayerGui.MainGui.MuseumBag.TextLabel
 
+function GetMuseumBag()
+	return tonumber(string.split(MuseumBag.Text, " ")[1])
+end
+
 function MuseumBagFull()
 	local Strings = string.split(MuseumBag.Text, " ")
 	return Strings[1] == Strings[3]
+end
+
+function Abort()
+	Abort = true
+	FarTP(CFrame.new(554.5, 20, 1117.4))
+	Abort = false
 end
 
 -- Jewelry Store --
@@ -255,6 +321,7 @@ function RobJewelry()
 		end
 	end
 	FarTP(CFrame.new(116.3, 117.9, 1307))
+	Money = Money + GetBagMoney()
 	wait(0.2)
 	FarTP(CFrame.new(-229.8, 20, 1602.3))
 end
@@ -278,6 +345,7 @@ function RobBank()
 	wait(0.5)
 	CloseTP(Bank.Money.CFrame)
 	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
+	Money = Money + GetBagMoney()
 end
 
 -- Museum --
@@ -301,6 +369,7 @@ function RobMuseum()
 		end
 	end
 	CloseTP(CFrame.new(1085.8, 143.8, 1201.7))
+	Money = Money + GetMuseumBag()
 	if string.split(MuseumBag.Text, " ")[1] ~= "0" then
 		FarTP(CFrame.new(1638.9, 51.1, -1799.1))
 		wait(0.5)
@@ -330,6 +399,7 @@ function RobAirdrop()
 			wait(7)
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 		until Drop == nil or Drop.Parent == nil or Abort == true
+		Money = Money + 1500
 	end
 end
 
@@ -425,24 +495,34 @@ end)
 -- Anti AFK --
 
 Plr.Idled:connect(function()
-	game:GetService("VirtualUser"):CaptureController()
-	game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+	if _G.AutoRobOn == true then
+		game:GetService("VirtualUser"):CaptureController()
+		game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+	end
 end)
 
 -- Cop Detection --
 
 spawn(function()
 	while wait() do
-		if Teleporting == false and Robbing == true and RobType == "Bank" then
+		if _G.AutoRobOn == true and Teleporting == false and Robbing == true and (RobType == "Bank" or RobType == "Airdrop") then
 			for i, v in ipairs(game:GetService("Teams").Police:GetPlayers()) do
 				if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") then
 					if (v.Character.HumanoidRootPart.Position - Root.Position).magnitude < 32 then
-						Abort = true
-						FarTP(CFrame.new(554.5, 20, 1117.4))
-						Abort = false
+						Abort()
 					end
 				end
 			end
 		end
 	end	
 end)
+
+-- Update Text --
+
+while wait(1) do
+	if _G.AutoRobOn == true then
+		RobsDone.Text = "Robberies Completed: " .. tostring(Completed)
+		RobsAborted.Text = "Robberies Aborted: " .. tostring(Aborted)
+		MoneyMade.Text = "Money Made: " .. tostring(Money)
+	end
+end

@@ -352,6 +352,7 @@ function RobBank()
 	CloseTP(Bank.Money.CFrame)
 	repeat wait() until IsBagFull() == true or Abort == true or BankIsOpen == false
 	if Abort == true then
+		Money = Money + GetBagMoney()
 		return
 	end
 	Money = Money + GetBagMoney()
@@ -377,6 +378,12 @@ function RobMuseum()
 				VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 			until v.Transparency > 0.99 or MuseumIsOpen == false or Abort == true
 			if Abort == true then
+				Money = Money + GetMuseumBag()
+				if string.split(MuseumBag.Text, " ")[1] ~= "0" then
+					FarTP(CFrame.new(1638.9, 51.1, -1799.1))
+					wait(0.5)
+					CloseTP(CFrame.new(1638.9, 51.1, -1799.1))
+				end
 				return
 			end
 		end

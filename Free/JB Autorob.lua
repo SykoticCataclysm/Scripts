@@ -381,6 +381,9 @@ function RobMuseum()
 	for i, v in ipairs(Museum.CaseLasers:GetChildren()) do
 		v:Destroy()
 	end
+	for i, v in ipairs(Museum.Lights:GetChildren()) do
+		v:Destroy()
+	end
 	for i, v in ipairs(Museum.Dino:GetChildren()) do
 		if v.Transparency < 0.99 and MuseumBagFull() == false and MuseumIsOpen == true then
 			repeat 

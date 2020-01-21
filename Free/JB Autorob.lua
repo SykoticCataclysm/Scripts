@@ -223,7 +223,7 @@ function FarTP(Cframe)
 			wait(0.2)
 			VIM:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 			wait(0.5)
-		until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true or Abort == true
+		until Hum:GetState() == Enum.HumanoidStateType.Seated or Plr.PlayerGui.MainGui.SimpleMessage.Visible == true or Abort == true or Plr.Team == game:GetService("Teams").Prisoner
 		if Plr.PlayerGui.MainGui.SimpleMessage.Visible == true then
 			CloseTP(Cframe)
 			return
@@ -238,7 +238,7 @@ function FarTP(Cframe)
 			wait(0.2)
 			VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
 			wait(0.5)
-		until Hum:GetState() ~= Enum.HumanoidStateType.Seated or Abort == true
+		until Hum:GetState() ~= Enum.HumanoidStateType.Seated or Abort == true or Plr.Team == game:GetService("Teams").Prisoner
 		wait(1)
 		if Car.Parent ~= nil and Car.Parent.Parent ~= nil then
 			Car.Parent.Parent:Destroy()

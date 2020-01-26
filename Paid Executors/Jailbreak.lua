@@ -1,4 +1,6 @@
 --[[
+    Syko's Jailbreak Script
+
     Synapse Xen v1.1.2 by Synapse GP
     VM Hash: 131fd8209fef37d317892740751bde0c6c27dfaaa00579377a6670a4e83d6ea5
 ]]

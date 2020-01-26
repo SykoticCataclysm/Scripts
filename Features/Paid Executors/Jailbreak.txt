@@ -1,4 +1,11 @@
-Features Of My JailBreak Script For Paid Executors:
+JailBreak Script ( Paid Executor Version )
+
+Credits:
+
+Syko - The Scripting - https://discord.gg/FA5zajs
+Wally - The UI Library - https://v3rmillion.net/showthread.php?tid=899177
+
+Features Of The Script:
 
 > Place Teleports
 > Teleport Speed Customisation

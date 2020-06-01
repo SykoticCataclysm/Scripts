@@ -1,4 +1,4 @@
-local Library = { Tabs = {} }
+local Library = { Tabs = {}, Drag = nil }
 
 local UserInputService = game:GetService("UserInputService")
 local Heartbeat = game:GetService("RunService").Heartbeat
@@ -95,7 +95,26 @@ Library.Main = Create('ImageLabel', {
 
 Library.Buttons = Library.Main.Buttons
 Library.Frames = Library.Main.Frames
-Library.Title = Library.Main.TitleFrame.Title
+Library.TitleFrame = Library.Main.TitleFrame
+Library.Title = Library.TitleFrame.Title
+
+Library.TitleFrame.InputBegan:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        if Library.Drag then
+            Library.Drag:Disconnect()
+        end
+        Library.Drag = Heartbeat:Connect(function()
+            local Pos = UDim2.new(0, Mouse.X - Library.Main.AbsolutePosition.X + (Library.Main.Size.X.Offset * 0.5), 0, Mouse.Y - Library.Main.AbsolutePosition.Y + (Library.Main.Size.Y.Offset * 0.5))
+            Library.Main:TweenPosition()
+        end)
+    end
+end)
+
+Library.TitleFrame.InputEnded:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton1 and Library.Drag then
+        Library.Drag:Disconnect()
+    end
+end)
 
 function Library:Tab(name)
 	local Tab = {}

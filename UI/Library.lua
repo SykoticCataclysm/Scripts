@@ -492,8 +492,6 @@ function Library:Tab(name)
 		Dropdown.Open = Dropdown.Frame.Open
 		Dropdown.Open.MouseButton1Click:Connect(function()
 			Dropdown.IsOpen = not Dropdown.IsOpen
-            Dropdown.Open.Rotation = Dropdown.IsOpen and 180 or 0
-            Dropdown.Open.Position = Dropdown.IsOpen and UDim2.new(0, 275, 0, 1) or UDim2.new(0, 275, 0, 0)
 			Dropdown.Frame.Size = Dropdown.IsOpen and UDim2.new(0, 305, 0, 205) or UDim2.new(0, 305, 0, 30)
 			Dropdown.Scroll.Size = Dropdown.IsOpen and UDim2.new(0, 285, 0, 180) or UDim2.new(0, 285, 0, 0)
 			Tab.Frame.CanvasSize = UDim2.new(0, 0, 0, 5)

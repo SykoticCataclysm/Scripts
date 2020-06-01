@@ -431,7 +431,7 @@ function Library:Tab(name)
                 Font = Enum.Font.Highway,
                 Name = "Label",
                 Size = UDim2.new(0, 305, 0, 30),
-                Text = Default,
+                Text = name,
                 TextColor3 = Color3.new(1, 1, 1),
                 TextSize = 18,
                 TextStrokeTransparency = 0,
@@ -465,7 +465,6 @@ function Library:Tab(name)
         })
 		Dropdown.Scroll = Dropdown.Frame.Dropdown
 		Dropdown.Open = Dropdown.Frame.Open
-		Dropdown.Label = Dropdown.Frame.Label
 		Dropdown.Open.MouseButton1Click:Connect(function()
 			Dropdown.IsOpen = not Dropdown.IsOpen
 			Dropdown.Open.Rotation = Dropdown.IsOpen and 180 or 0
@@ -503,7 +502,6 @@ function Library:Tab(name)
 				})
 				Btn.MouseButton1Click:Connect(function()
 					Dropdown.Value = v
-					Dropdown.Label.Text = Dropdown.Value
 					Callback(Dropdown.Value)
 				end)
 			end

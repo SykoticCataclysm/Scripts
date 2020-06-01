@@ -103,7 +103,7 @@ Library.TitleFrame.InputBegan:Connect(function(Input)
             Library.Drag:Disconnect()
         end
         Library.Drag = Heartbeat:Connect(function()
-            local Pos = UDim2.new(0, Mouse.X - Library.Main.AbsolutePosition.X, 0, Mouse.Y - Library.Main.AbsolutePosition.Y)
+            local Pos = UDim2.new(0, Mouse.X - (Mouse.X - Library.Main.AbsolutePosition.X), 0, Mouse.Y - (Mouse.Y - Library.Main.AbsolutePosition.Y))
             Library.Main:TweenPosition(Pos, "InOut", "Sine", 0.08, true)
         end)
     end

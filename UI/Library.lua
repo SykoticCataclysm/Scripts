@@ -207,6 +207,7 @@ function Library:Tab(name)
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Name = name,
+	    Parent = Tab.Frame,
             Position = UDim2.new(0, 5, 0, 40),
             Size = UDim2.new(0, 305, 0, 30),
             Create('TextButton', {

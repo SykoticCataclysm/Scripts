@@ -1,4 +1,4 @@
-local Library = { Tabs = {}, Drag = nil }
+local Library = { Tabs = {} }
 
 local UserInputService = game:GetService("UserInputService")
 local Heartbeat = game:GetService("RunService").Heartbeat
@@ -97,21 +97,28 @@ Library.Frames = Library.Main.Frames
 Library.TitleFrame = Library.Main.TitleFrame
 Library.Title = Library.TitleFrame.Title
 
+local Dragging = false
+local DragStart = nil
+local FrameStart = nil
+
 Library.TitleFrame.InputBegan:Connect(function(Input)
     if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-        if Library.Drag then
-            Library.Drag:Disconnect()
-        end
-        Library.Drag = Heartbeat:Connect(function()
-            local Pos = UDim2.new(0, Mouse.X - (Mouse.X - Library.Main.AbsolutePosition.X), 0, Mouse.Y - (Mouse.Y - Library.Main.AbsolutePosition.Y))
-            Library.Main:TweenPosition(Pos, "InOut", "Sine", 0.08, true)
-        end)
+        Dragging = true
+        DragStart = Input.Position
+        FrameStart = Library.Main.AbsolutePosition
     end
 end)
 
 Library.TitleFrame.InputEnded:Connect(function(Input)
-    if Input.UserInputType == Enum.UserInputType.MouseButton1 and Library.Drag then
-        Library.Drag:Disconnect()
+    if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        Dragging = false
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseMovement and Dragging then
+        local Pos = UDim2.new(0, FrameStart.X + (Input.Position.X - DragStart.X), 0, FrameStart.Y + (Input.Position.Y - DragStart.Y))
+        Library.Main:TweenPosition(Pos, "In", "Linear", 0.08, true)
     end
 end)
 
@@ -535,7 +542,7 @@ function Library:Tab(name)
 			
 	Tab.Frame.ChildAdded:Connect(function(child)
 		local Offset = Tab.Frame.CanvasSize.Y.Offset
-		child.Position = UDim2.new(0, 0, 0, Offset)
+		child.Position = UDim2.new(0, 5, 0, Offset)
 		Tab.Frame.CanvasSize = UDim2.new(0, 0, 0, Offset + child.AbsoluteSize.Y + 5)
 	end)
 	

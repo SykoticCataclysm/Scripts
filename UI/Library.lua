@@ -33,14 +33,13 @@ local Gui = Create("ScreenGui", {
 })
 
 Library.Main = Create('ImageLabel', {
-    AnchorPoint = Vector2.new(0.5, 0.5),
     BackgroundColor3 = Color3.new(1, 1, 1),
     BackgroundTransparency = 1,
     Image = "rbxassetid://3570695787",
     ImageColor3 = Color3.new(0.176471, 0.176471, 0.176471),
     Name = "Frame",
     Parent = Gui,
-    Position = UDim2.new(0.5, 0, 0.5, 0),
+    Position = UDim2.new(0.5, -250, 0.5, -157.5),
     ScaleType = Enum.ScaleType.Slice,
     Size = UDim2.new(0, 500, 0, 315),
     SliceCenter = Rect.new(Vector2.new(100, 100), Vector2.new(100, 100)),
@@ -104,7 +103,7 @@ Library.TitleFrame.InputBegan:Connect(function(Input)
             Library.Drag:Disconnect()
         end
         Library.Drag = Heartbeat:Connect(function()
-            local Pos = UDim2.new(0, Mouse.X - Library.Main.AbsolutePosition.X + (Library.Main.Size.X.Offset * 0.5), 0, Mouse.Y - Library.Main.AbsolutePosition.Y + (Library.Main.Size.Y.Offset * 0.5))
+            local Pos = UDim2.new(0, Mouse.X - Library.Main.AbsolutePosition.X, 0, Mouse.Y - Library.Main.AbsolutePosition.Y)
             Library.Main:TweenPosition(Pos, "InOut", "Sine", 0.08, true)
         end)
     end

@@ -236,7 +236,7 @@ function Library:Tab(name)
             })
         })
 		Toggle.Btn = Toggle.Frame.Button
-		Toggle.Button.MouseButton1Click:Connect(function()
+		Toggle.Btn.MouseButton1Click:Connect(function()
 			Toggle.Enabled = not Toggle.Enabled
 			Toggle.Btn.BackgroundColor3 = Toggle.Enabled and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(35, 35, 35)
 			Callback(Toggle.Enabled)

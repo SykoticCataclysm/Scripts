@@ -494,8 +494,8 @@ function Library:Tab(name)
 			Dropdown.IsOpen = not Dropdown.IsOpen
             Dropdown.Open.Rotation = Dropdown.IsOpen and 180 or 0
             Dorpdown.Open.Position = Dropdown.IsOpen and UDim2.new(0, 275, 0, 1) or UDim2.new(0, 275, 0, 0)
-			Dropdown.Frame.Size = Dropdown.IsOpen and UDim2.new(0, 305, 0, 165) or UDim2.new(0, 305, 0, 30)
-			Dropdown.Scroll.Size = Dropdown.IsOpen and UDim2.new(0, 285, 0, 140) or UDim2.new(0, 285, 0, 0)
+			Dropdown.Frame.Size = Dropdown.IsOpen and UDim2.new(0, 305, 0, 205) or UDim2.new(0, 305, 0, 30)
+			Dropdown.Scroll.Size = Dropdown.IsOpen and UDim2.new(0, 285, 0, 180) or UDim2.new(0, 285, 0, 0)
 			Tab.Frame.CanvasSize = UDim2.new(0, 0, 0, 5)
 			local Items = Tab.Frame:GetChildren()
 			table.sort(Items, function(a, b)
@@ -532,7 +532,7 @@ function Library:Tab(name)
 				end)
 			end
 		end
-		Dropdown.Scroll.ChildAdded:Connect(function(child)
+        Dropdown.Scroll.ChildAdded:Connect(function(child)
 			local Offset = Dropdown.Scroll.CanvasSize.Y.Offset
 			child.Position = UDim2.new(0, 0, 0, Offset)
 			Dropdown.Scroll.CanvasSize = UDim2.new(0, 0, 0, Offset + child.AbsoluteSize.Y)

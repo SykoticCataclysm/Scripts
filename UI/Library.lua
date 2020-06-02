@@ -257,7 +257,12 @@ function Library:Tab(name)
 			Toggle.Enabled = false
 			Toggle.Btn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Callback(Toggle.Enabled)
-		end
+        end
+        if default == true then
+            Toggle:Enable()
+        else
+            Toggle:Disable()
+        end
 		return Toggle
 	end
 	

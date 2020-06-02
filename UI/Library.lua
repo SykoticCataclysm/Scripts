@@ -118,7 +118,7 @@ end)
 UserInputService.InputChanged:Connect(function(Input)
     if Input.UserInputType == Enum.UserInputType.MouseMovement and Dragging then
         local Pos = UDim2.new(0, FrameStart.X + (Input.Position.X - DragStart.X), 0, FrameStart.Y + (Input.Position.Y - DragStart.Y))
-        Library.Main:TweenPosition(Pos, "In", "Linear", 0.08, true)
+        Library.Main:TweenPosition(Pos, "In", "Linear", 0.12, true)
     end
 end)
 

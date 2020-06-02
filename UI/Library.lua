@@ -154,7 +154,8 @@ function Library:Tab(name)
 		Parent = Library.Frames,
         ScrollBarImageColor3 = Color3.new(0.0392157, 0.0392157, 0.0392157),
         ScrollBarThickness = 5,
-        Size = UDim2.new(0, 320, 0, 250)
+        Size = UDim2.new(0, 320, 0, 250),
+        Visible = #Library.Tabs == 0
 	})
 	
 	function Tab:Button(name, func)
@@ -207,7 +208,7 @@ function Library:Tab(name)
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Name = name,
-	    Parent = Tab.Frame,
+            Parent = Tab.Frame,
             Position = UDim2.new(0, 5, 0, 40),
             Size = UDim2.new(0, 305, 0, 30),
             Create('TextButton', {

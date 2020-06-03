@@ -7,10 +7,10 @@ local Player = game:GetService("Players").LocalPlayer
 local Mouse = Player:GetMouse()
 
 local function Create(obj, props)
-	local Obj = Instance.new(obj)
-	for i, v in pairs(props) do
-		if i ~= 'Parent' then
-			if typeof(v) == 'Instance' then
+    local Obj = Instance.new(obj)
+    for i, v in pairs(props) do
+    	if i ~= 'Parent' then
+    		if typeof(v) == 'Instance' then
 				v.Parent = Obj
 			else
 				Obj[i] = v
@@ -125,18 +125,18 @@ end)
 function Library:Tab(name)
 	local Tab = {}
 	Tab.Btn = Create('TextButton', {
-	    AutoButtonColor = false,
-	    BackgroundColor3 = Color3.new(0.156863, 0.156863, 0.156863),
-	    BorderColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314),
-	    Font = Enum.Font.Highway,
-	    Name = name,
-		Parent = Library.Buttons,
-		Position = UDim2.new(0, 5, 0, 5 + 35 * #Library.Buttons:GetChildren()),
-	    Size = UDim2.new(0, 150, 0, 30),
-	    Text = name,
-	    TextColor3 = Color3.new(1, 1, 1),
-	    TextSize = 20,
-	    TextStrokeTransparency = 0
+        AutoButtonColor = false,
+        BackgroundColor3 = Color3.new(0.156863, 0.156863, 0.156863),
+        BorderColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314),
+        Font = Enum.Font.Highway,
+        Name = name,
+        Parent = Library.Buttons,
+        Position = UDim2.new(0, 5, 0, 5 + 35 * #Library.Buttons:GetChildren()),
+        Size = UDim2.new(0, 150, 0, 30),
+        Text = name,
+        TextColor3 = Color3.new(1, 1, 1),
+        TextSize = 20,
+        TextStrokeTransparency = 0
 	})
 	Tab.Btn.MouseButton1Click:Connect(function()
 		for i, v in next, Library.Tabs do
@@ -148,16 +148,16 @@ function Library:Tab(name)
         BackgroundColor3 = Color3.new(1, 1, 1),
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
-		CanvasSize = UDim2.new(0, 0, 0, 5),
-		ClipsDescendants = true,
+        CanvasSize = UDim2.new(0, 0, 0, 5),
+        ClipsDescendants = true,
         Name = name,
-		Parent = Library.Frames,
+        Parent = Library.Frames,
         ScrollBarImageColor3 = Color3.new(0.0392157, 0.0392157, 0.0392157),
         ScrollBarThickness = 5,
         Size = UDim2.new(0, 320, 0, 250),
         Visible = #Library.Tabs == 0
     })
-    
+
     function Tab:Label(name)
         local Label = {}
         Label.Frame = Create('Frame', {
@@ -165,7 +165,7 @@ function Library:Tab(name)
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Name = name,
-			Parent = Tab.Frame,
+            Parent = Tab.Frame,
             Size = UDim2.new(0, 305, 0, 25),
             Create('TextLabel', {
                 BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255),
@@ -173,7 +173,7 @@ function Library:Tab(name)
                 Font = Enum.Font.Highway,
                 Name = "Label",
                 Size = UDim2.new(0, 305, 0, 25),
-				Text = name,
+                Text = name,
                 TextColor3 = Color3.new(1, 1, 1),
                 TextSize = 16
             })
@@ -193,7 +193,7 @@ function Library:Tab(name)
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Name = name,
-			Parent = Tab.Frame,
+            Parent = Tab.Frame,
             Size = UDim2.new(0, 305, 0, 30),
             Create('TextButton', {
                 AutoButtonColor = false,
@@ -202,12 +202,12 @@ function Library:Tab(name)
                 Font = Enum.Font.Highway,
                 Name = "Button",
                 Size = UDim2.new(0, 305, 0, 30),
-				Text = name,
+                Text = name,
                 TextColor3 = Color3.new(1, 1, 1),
                 TextSize = 18,
                 TextStrokeTransparency = 0
+                })
             })
-        })
 		Button.Btn = Button.Frame.Button
 		Button.Btn.MouseButton1Click:Connect(Callback)
 		function Button:Fire()
@@ -249,7 +249,7 @@ function Library:Tab(name)
                 Text = "",
                 TextColor3 = Color3.new(1, 1, 1),
                 TextSize = 18,
-                TextStrokeTransparency = 0
+            TextStrokeTransparency = 0
             }),
             Create('TextLabel', {
                 BackgroundColor3 = Color3.new(1, 1, 1),
@@ -375,7 +375,7 @@ function Library:Tab(name)
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Name = name,
-			Parent = Tab.Frame,
+            Parent = Tab.Frame,
             Position = UDim2.new(0, 5, 0, 75),
             Size = UDim2.new(0, 305, 0, 30),
             Create('TextLabel', {
@@ -481,7 +481,7 @@ function Library:Tab(name)
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Name = name,
-			Parent = Tab.Frame,
+            Parent = Tab.Frame,
             Position = UDim2.new(0, 5, 0, 110),
             Size = UDim2.new(0, 305, 0, 30),
             Create('TextLabel', {
@@ -547,16 +547,16 @@ function Library:Tab(name)
 			AlphabetiseTable(newlist)
 			for i, v in next, newlist do
 				local Btn = Create('TextButton', {
-				    AutoButtonColor = false,
-				    BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255),
-				    BorderColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314),
-				    Font = Enum.Font.Highway,
-				    Name = v,
-					Parent = Dropdown.Scroll,
-				    Size = UDim2.new(0, 280, 0, 28),
-					Text = v,
-				    TextColor3 = Color3.new(1, 1, 1),
-				    TextSize = 17
+                    AutoButtonColor = false,
+                    BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255),
+                    BorderColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314),
+                    Font = Enum.Font.Highway,
+                    Name = v,
+                    Parent = Dropdown.Scroll,
+                    Size = UDim2.new(0, 280, 0, 28),
+                    Text = v,
+                    TextColor3 = Color3.new(1, 1, 1),
+                    TextSize = 17
 				})
 				Btn.MouseButton1Click:Connect(function()
 					Dropdown.Value = v

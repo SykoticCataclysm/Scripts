@@ -26,7 +26,7 @@ local function Create(obj, props)
             local Click = Circle:Clone()
             Click.Parent = Obj
             Click.Position = UDim2.new(0, Mouse.X - Obj.AbsolutePosition.X, 0, Mouse.Y - Obj.AbsolutePosition.Y)
-            local Tween = TweenService:Create(Click, TweenInfo.new(0.4), {Size = UDim2.new(0, 250, 0, 250), Transparency = 1})
+            local Tween = TweenService:Create(Click, TweenInfo.new(0.4), {Size = UDim2.new(0, 250, 0, 250), ImageTransparency = 1})
             Tween.Completed:Connect(function()
                 Click:Destroy()
             end)

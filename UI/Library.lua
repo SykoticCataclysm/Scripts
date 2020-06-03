@@ -24,11 +24,11 @@ local function Create(obj, props)
         Obj.ClipsDescendants = true
         Obj.MouseButton1Click:Connect(function()
             local Click = Circle:Clone()
-            Circle.Parent = Obj
-            Circle.Position = UDim2.new(0, Mouse.X - Obj.AbsolutePosition.X, 0, Mouse.Y - Obj.AbsolutePosition.Y)
-            local Tween = TweenService:Create(Circle, TweenInfo.new(0.4), {Size = UDim2.new(0, 250, 0, 250), Transparency = 1})
+            Click.Parent = Obj
+            Click.Position = UDim2.new(0, Mouse.X - Obj.AbsolutePosition.X, 0, Mouse.Y - Obj.AbsolutePosition.Y)
+            local Tween = TweenService:Create(Click, TweenInfo.new(0.4), {Size = UDim2.new(0, 250, 0, 250), Transparency = 1})
             Tween.Completed:Connect(function()
-                Circle:Destroy()
+                Click:Destroy()
             end)
             Tween:Play()
         end)

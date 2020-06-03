@@ -1,10 +1,13 @@
 local Library = { Tabs = {} }
 
 local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
 local Heartbeat = game:GetService("RunService").Heartbeat
 
 local Player = game:GetService("Players").LocalPlayer
 local Mouse = Player:GetMouse()
+
+local Circle
 
 local function Create(obj, props)
     local Obj = Instance.new(obj)
@@ -16,7 +19,20 @@ local function Create(obj, props)
 				Obj[i] = v
 			end
 		end			
-	end
+    end
+    if obj == "TextButton" then
+        Obj.ClipsDescendants = true
+        Obj.MouseButton1Click:Connect(function()
+            local Click = Circle:Clone()
+            Circle.Parent = Obj
+            Circle.Position = UDim2.new(0, Mouse.X - Obj.AbsolutePosition.X, 0, Mouse.Y - Obj.AbsolutePosition.Y)
+            local Tween = TweenService:Create(Circle, TweenInfo.new(0.4), {Size = UDim2.new(0, 250, 0, 250), Transparency = 1})
+            Tween.Completed:Connect(function()
+                Circle:Destroy()
+            end)
+            Tween:Play()
+        end)
+    end
 	Obj.Parent = props.Parent
 	return Obj
 end
@@ -92,6 +108,18 @@ Library.Main = Create('ImageLabel', {
     })
 })
 
+Circle = Create("ImageLabel", {
+    AnchorPoint = UDim2.new(0.5, 0.5),
+    BackgroundTransparency = 1,
+    Image = "rbxassetid://3570695787",
+    ImageTransparency = 0.3,
+    Name = "Circle",
+    ScaleType = "Slice",
+    Size = UDim2.new(0, 0, 0, 0),
+    SliceCenter = Rect.new(Vector2.new(100, 100), Vector2.new(100, 100)),
+    SliceScale = 1
+})
+
 Library.Buttons = Library.Main.Buttons
 Library.Frames = Library.Main.Frames
 Library.TitleFrame = Library.Main.TitleFrame
@@ -123,8 +151,8 @@ UserInputService.InputChanged:Connect(function(Input)
 end)
 
 function Library:Tab(name)
-	local Tab = {}
-	Tab.Btn = Create('TextButton', {
+    local Tab = {}
+    Tab.Btn = Create('TextButton', {
         AutoButtonColor = false,
         BackgroundColor3 = Color3.new(0.156863, 0.156863, 0.156863),
         BorderColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314),
@@ -137,13 +165,13 @@ function Library:Tab(name)
         TextColor3 = Color3.new(1, 1, 1),
         TextSize = 20,
         TextStrokeTransparency = 0
-	})
-	Tab.Btn.MouseButton1Click:Connect(function()
-		for i, v in next, Library.Tabs do
-			v.Frame.Visible = v.Frame == Tab.Frame
-		end
-	end)
-	Tab.Frame = Create('ScrollingFrame', {
+    })
+    Tab.Btn.MouseButton1Click:Connect(function()
+        for i, v in next, Library.Tabs do
+            v.Frame.Visible = v.Frame == Tab.Frame
+        end
+    end)
+    Tab.Frame = Create('ScrollingFrame', {
         Active = true,
         BackgroundColor3 = Color3.new(1, 1, 1),
         BackgroundTransparency = 1,
@@ -170,7 +198,7 @@ function Library:Tab(name)
             Create('TextLabel', {
                 BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255),
                 BorderSizePixel = 0,
-                Font = Enum.Font.Highway,
+                Font = Enum.Font.SourceSansSemibold,
                 Name = "Label",
                 Size = UDim2.new(0, 305, 0, 25),
                 Text = name,

@@ -156,7 +156,35 @@ function Library:Tab(name)
         ScrollBarThickness = 5,
         Size = UDim2.new(0, 320, 0, 250),
         Visible = #Library.Tabs == 0
-	})
+    })
+    
+    function Tab:Label(name)
+        local Label = {}
+        Label.Frame = Create('Frame', {
+            BackgroundColor3 = Color3.new(1, 1, 1),
+            BackgroundTransparency = 1,
+            BorderSizePixel = 0,
+            Name = name,
+			Parent = Tab.Frame,
+            Size = UDim2.new(0, 305, 0, 25),
+            Create('TextLabel', {
+                AutoButtonColor = false,
+                BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255),
+                BorderSizePixel = 0,
+                Font = Enum.Font.Highway,
+                Name = "Label",
+                Size = UDim2.new(0, 305, 0, 25),
+				Text = name,
+                TextColor3 = Color3.new(1, 1, 1),
+                TextSize = 16
+            })
+        })
+        Label.Label = Label.Frame.Label
+        function Label:Set(name)
+            Label.Label.Text = name
+        end
+        return Label
+    end
 	
 	function Tab:Button(name, func)
 		local Button = {}

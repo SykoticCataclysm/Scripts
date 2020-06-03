@@ -109,7 +109,7 @@ Library.Main = Create('ImageLabel', {
 })
 
 Circle = Create("ImageLabel", {
-    AnchorPoint = UDim2.new(0.5, 0.5),
+    AnchorPoint = Vector2.new(0.5, 0.5),
     BackgroundTransparency = 1,
     Image = "rbxassetid://3570695787",
     ImageTransparency = 0.3,

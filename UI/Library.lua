@@ -168,7 +168,6 @@ function Library:Tab(name)
 			Parent = Tab.Frame,
             Size = UDim2.new(0, 305, 0, 25),
             Create('TextLabel', {
-                AutoButtonColor = false,
                 BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255),
                 BorderSizePixel = 0,
                 Font = Enum.Font.Highway,
